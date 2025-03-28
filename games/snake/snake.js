@@ -106,95 +106,26 @@ let lastTimestamp = 0;
 let lastHintTime = 0;
 let highScore = localStorage.getItem('chemistrySnakeHighScore') || 0;
 let particles = [];
+
 // Touch control variables
-let touchStartX = 0;
-let touchStartY = 0;
-let touchEndX = 0;
-let touchEndY = 0;
-const minSwipeDistance = 50; // Increased minimum distance for better reliability
-
-// Get canvas position relative to viewport
-function getCanvasPosition() {
-    const rect = canvas.getBoundingClientRect();
-    return {
-        left: rect.left,
-        top: rect.top,
-        width: rect.width,
-        height: rect.height
-    };
-}
-
-// Touch event handlers
-function handleTouchStart(e) {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const canvasPos = getCanvasPosition();
-    touchStartX = touch.clientX - canvasPos.left;
-    touchStartY = touch.clientY - canvasPos.top;
-}
-
-function handleTouchMove(e) {
-    e.preventDefault();
-}
-
-function handleTouchEnd(e) {
-    e.preventDefault();
-    
-    if (gameOver || isPaused) return;
-    
-    const touch = e.changedTouches[0];
-    const canvasPos = getCanvasPosition();
-    touchEndX = touch.clientX - canvasPos.left;
-    touchEndY = touch.clientY - canvasPos.top;
-    
-    handleSwipe();
-}
-
-function handleSwipe() {
-    const dx = touchEndX - touchStartX;
-    const dy = touchEndY - touchStartY;
-    
-    // Check if the swipe was long enough
-    if (Math.abs(dx) < minSwipeDistance && Math.abs(dy) < minSwipeDistance) {
-        return; // Too short to be a swipe
-    }
-    
-    // Determine primary swipe direction
-    if (Math.abs(dx) > Math.abs(dy)) {
-        // Horizontal swipe
-        if (dx > 0 && direction !== 'left') {
-            nextDirection = 'right';
-        } else if (dx < 0 && direction !== 'right') {
-            nextDirection = 'left';
-        }
-    } else {
-        // Vertical swipe
-        if (dy > 0 && direction !== 'up') {
-            nextDirection = 'down';
-        } else if (dy < 0 && direction !== 'down') {
-            nextDirection = 'up';
-        }
-    }
-}
+let touchStartX = null;
+let touchStartY = null;
+const minSwipeDistance = 50;
 
 // Initialize game grid based on current canvas size
 function initGrid() {
-    // Calculate available space after padding and border
     const availableWidth = canvas.width - (GRID_PADDING * 2) - (BORDER_SIZE * 2);
     const availableHeight = canvas.height - (GRID_PADDING * 2) - (BORDER_SIZE * 2);
     
-    // Calculate columns/rows that fit
     GRID_COLS = Math.floor(availableWidth / GRID_SIZE);
     GRID_ROWS = Math.floor(availableHeight / GRID_SIZE);
     
-    // Ensure minimum grid size
     if (GRID_COLS < 10 || GRID_ROWS < 10) {
         GRID_SIZE = Math.min(availableWidth / 10, availableHeight / 10);
         GRID_COLS = Math.floor(availableWidth / GRID_SIZE);
         GRID_ROWS = Math.floor(availableHeight / GRID_SIZE);
     }
     
-    // Calculate centering offsets (including border)
     GRID_OFFSET_X = (canvas.width - (GRID_COLS * GRID_SIZE)) / 2;
     GRID_OFFSET_Y = (canvas.height - (GRID_ROWS * GRID_SIZE)) / 2;
 }
@@ -219,7 +150,6 @@ function resizeCanvas() {
     canvas.width = board.clientWidth;
     canvas.height = board.clientHeight;
     
-    // Reset grid size to base value before recalculating
     GRID_SIZE = 30;
     initGrid();
     
@@ -232,7 +162,6 @@ function resizeCanvas() {
 function initGame() {
     cancelAnimationFrame(gameLoopId);
     
-    // Load high score from storage
     highScore = localStorage.getItem('chemistrySnakeHighScore') || 0;
     if (highScoreDisplay) highScoreDisplay.textContent = highScore;
     
@@ -266,7 +195,6 @@ function initGame() {
 function generateFood() {
     food = [];
     
-    // Generate required cations
     for (let i = 0; i < Math.max(3, requiredCations * 2); i++) {
         const pos = getRandomPosition();
         food.push({
@@ -277,7 +205,6 @@ function generateFood() {
         });
     }
     
-    // Generate required anions
     for (let i = 0; i < Math.max(3, requiredAnions * 2); i++) {
         const pos = getRandomPosition();
         food.push({
@@ -288,7 +215,6 @@ function generateFood() {
         });
     }
     
-    // Add random ions
     const randomIonCount = 5;
     for (let i = 0; i < randomIonCount; i++) {
         const ionType = Math.random() < 0.5 ? 'cation' : 'anion';
@@ -316,7 +242,6 @@ function updateDisplay() {
     cationReqDisplay.textContent = `${currentCompound.cation.symbol}${currentCompound.cation.charge}: ${collectedCations}/${requiredCations}`;
     anionReqDisplay.textContent = `${currentCompound.anion.symbol}${currentCompound.anion.charge}: ${collectedAnions}/${requiredAnions}`;
     
-    // Update high score and level progress displays
     if (highScoreDisplay) highScoreDisplay.textContent = `High Score: ${highScore}`;
     if (levelProgressDisplay) {
         levelProgressDisplay.textContent = `${currentCompoundIndex + 1}/${compounds.length}`;
@@ -372,7 +297,6 @@ function moveSnake() {
         case 'right': head.x++; break;
     }
     
-    // Wrap around edges
     if (head.x < 0) head.x = GRID_COLS - 1;
     if (head.x >= GRID_COLS) head.x = 0;
     if (head.y < 0) head.y = GRID_ROWS - 1;
@@ -403,7 +327,6 @@ function checkFoodCollision() {
         if (isCorrectCation) {
             collectedCations++;
             if (collectedCations > requiredCations) {
-                // Penalty for collecting more than needed
                 score = Math.max(0, score - 10);
             } else {
                 score += 10 * (Math.abs(parseInt(ion.charge)) || 1);
@@ -413,7 +336,6 @@ function checkFoodCollision() {
         else if (isCorrectAnion) {
             collectedAnions++;
             if (collectedAnions > requiredAnions) {
-                // Penalty for collecting more than needed
                 score = Math.max(0, score - 10);
             } else {
                 score += 10 * (Math.abs(parseInt(ion.charge)) || 1);
@@ -457,7 +379,7 @@ function nextLevel() {
     
     generateFood();
     updateDisplay();
-    draw(); // Immediate transition without countdown
+    draw();
 }
 
 function checkCollisions() {
@@ -502,11 +424,9 @@ function drawParticles() {
 }
 
 function drawGrid() {
-    // Clear the canvas with dark background
     ctx.fillStyle = '#e6e8e8';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // Draw the orange border AROUND the grid (outside)
     ctx.strokeStyle = '#061329';
     ctx.lineWidth = BORDER_SIZE;
     ctx.strokeRect(
@@ -516,11 +436,9 @@ function drawGrid() {
         GRID_ROWS * GRID_SIZE + BORDER_SIZE
     );
     
-    // Set grid line style
     ctx.strokeStyle = '#90a1af';
     ctx.lineWidth = 1;
     
-    // Draw vertical grid lines
     for (let x = 0; x <= GRID_COLS; x++) {
         ctx.beginPath();
         ctx.moveTo(
@@ -534,7 +452,6 @@ function drawGrid() {
         ctx.stroke();
     }
     
-    // Draw horizontal grid lines
     for (let y = 0; y <= GRID_ROWS; y++) {
         ctx.beginPath();
         ctx.moveTo(
@@ -679,7 +596,7 @@ function togglePause() {
     isPaused = !isPaused;
     pauseBtn.textContent = isPaused ? "Resume" : "Pause";
     if (!isPaused && !gameOver) {
-        lastTimestamp = 0; // Reset timestamp to avoid jump after pause
+        lastTimestamp = 0;
         gameLoopId = requestAnimationFrame(gameLoop);
     }
 }
@@ -696,13 +613,61 @@ function showHint() {
     alert(`Collect ${requiredCations} ${currentCompound.cation.symbol}${currentCompound.cation.charge} and ${requiredAnions} ${currentCompound.anion.symbol}${currentCompound.anion.charge} to make ${currentCompound.formula}`);
 }
 
-// Event listeners and initialization
+// Touch control implementation
+function handleTouchStart(e) {
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    e.preventDefault();
+}
+
+function handleTouchMove(e) {
+    if (touchStartX === null || touchStartY === null) return;
+    e.preventDefault();
+}
+
+function handleTouchEnd(e) {
+    if (gameOver || isPaused || touchStartX === null || touchStartY === null) {
+        touchStartX = null;
+        touchStartY = null;
+        return;
+    }
+
+    const touch = e.changedTouches[0];
+    const touchEndX = touch.clientX;
+    const touchEndY = touch.clientY;
+    
+    const dx = touchEndX - touchStartX;
+    const dy = touchEndY - touchStartY;
+    
+    touchStartX = null;
+    touchStartY = null;
+    
+    if (Math.abs(dx) < minSwipeDistance && Math.abs(dy) < minSwipeDistance) {
+        return;
+    }
+    
+    if (Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 0 && direction !== 'left') {
+            nextDirection = 'right';
+        } else if (dx < 0 && direction !== 'right') {
+            nextDirection = 'left';
+        }
+    } else {
+        if (dy > 0 && direction !== 'up') {
+            nextDirection = 'down';
+        } else if (dy < 0 && direction !== 'down') {
+            nextDirection = 'up';
+        }
+    }
+}
+
+// Event listeners
 if (restartBtn && pauseBtn && hintBtn) {
     restartBtn.addEventListener('click', initGame);
     pauseBtn.addEventListener('click', togglePause);
     hintBtn.addEventListener('click', showHint);
     
-    // Accessibility
     restartBtn.setAttribute('aria-label', 'Restart game');
     pauseBtn.setAttribute('aria-label', 'Pause game');
     hintBtn.setAttribute('aria-label', 'Get hint about current compound');
@@ -722,7 +687,7 @@ document.addEventListener('keydown', e => {
         case 'ArrowDown': if (direction !== 'up') nextDirection = 'down'; break;
         case 'ArrowLeft': if (direction !== 'right') nextDirection = 'left'; break;
         case 'ArrowRight': if (direction !== 'left') nextDirection = 'right'; break;
-        case ' ': togglePause(); break; // Spacebar to pause
+        case ' ': togglePause(); break;
     }
 });
 

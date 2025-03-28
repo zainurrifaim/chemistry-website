@@ -403,6 +403,13 @@ Responsive Design
   }
 }
 
+
+#game {
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 /* Additional styles from the new design */
 .btn {
   background-color: var(--secondary);
@@ -411,3 +418,5 @@ Responsive Design
 .btn:hover {
   background-color: #E53935;
 }
+
+
