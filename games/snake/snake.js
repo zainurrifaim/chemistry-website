@@ -106,6 +106,12 @@ let lastTimestamp = 0;
 let lastHintTime = 0;
 let highScore = localStorage.getItem('chemistrySnakeHighScore') || 0;
 let particles = [];
+// Touch control variables
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+const minSwipeDistance = 30; // Minimum distance in pixels to consider it a swipe
 
 // Initialize game grid based on current canvas size
 function initGrid() {
@@ -638,6 +644,64 @@ if (restartBtn && pauseBtn && hintBtn) {
     hintBtn.setAttribute('aria-label', 'Get hint about current compound');
 } else {
     console.error("Could not find all required buttons");
+}
+
+// Add these event listeners after your existing event listeners
+canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+
+function handleTouchStart(e) {
+    // Prevent scrolling when touching the game area
+    e.preventDefault();
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+}
+
+function handleTouchMove(e) {
+    // Prevent scrolling during swipe
+    e.preventDefault();
+}
+
+function handleTouchEnd(e) {
+    // Prevent any default behavior
+    e.preventDefault();
+    
+    if (gameOver || isPaused) return;
+    
+    const touch = e.changedTouches[0];
+    touchEndX = touch.clientX;
+    touchEndY = touch.clientY;
+    
+    handleSwipe();
+}
+
+function handleSwipe() {
+    const dx = touchEndX - touchStartX;
+    const dy = touchEndY - touchStartY;
+    
+    // Check if the swipe was long enough
+    if (Math.abs(dx) < minSwipeDistance && Math.abs(dy) < minSwipeDistance) {
+        return; // Too short to be a swipe
+    }
+    
+    // Determine primary swipe direction
+    if (Math.abs(dx) > Math.abs(dy)) {
+        // Horizontal swipe
+        if (dx > 0 && direction !== 'left') {
+            nextDirection = 'right';
+        } else if (dx < 0 && direction !== 'right') {
+            nextDirection = 'left';
+        }
+    } else {
+        // Vertical swipe
+        if (dy > 0 && direction !== 'up') {
+            nextDirection = 'down';
+        } else if (dy < 0 && direction !== 'down') {
+            nextDirection = 'up';
+        }
+    }
 }
 
 document.addEventListener('keydown', e => {
