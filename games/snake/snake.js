@@ -546,8 +546,8 @@ function drawFood() {
         ctx.shadowBlur = 3;
         ctx.shadowOffsetY = 2;
         
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-        ctx.font = `${GRID_SIZE/3}px Arial`;
+        ctx.fillStyle = 'rgb(255, 255, 255)';
+        ctx.font = `${GRID_SIZE/2.9}px Verdana`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(
