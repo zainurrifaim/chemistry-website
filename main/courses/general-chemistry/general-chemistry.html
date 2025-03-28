@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChemEdu | Interactive Chemistry Learning</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Course-specific styles */
+    .course-header {
+        background: linear-gradient(135deg, #5c7c6a 0%, #88a895 100%);
+        color: white;
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+    
+    .course-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .course-meta {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1.5rem;
+    }
+    
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .course-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+        display: flex;
+        gap: 2rem;
+    }
+    
+    .course-content {
+        flex: 2;
+    }
+    
+    .course-sidebar {
+        flex: 1;
+    }
+    
+    .module {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .module-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #e7e8e7;
+    }
+    
+    .lesson-list {
+        list-style: none;
+    }
+    
+    .lesson-item {
+        padding: 0.8rem 0;
+        border-bottom: 1px solid #e7e8e7;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .lesson-item:last-child {
+        border-bottom: none;
+    }
+    
+    .lesson-duration {
+        color: #6c665f;
+        font-size: 0.9rem;
+    }
+    
+    .progress-bar {
+        height: 6px;
+        background: #e7e8e7;
+        border-radius: 3px;
+        margin-top: 0.5rem;
+        overflow: hidden;
+    }
+    
+    .progress-fill {
+        height: 100%;
+        background: #5c7c6a;
+        width: 65%; /* Example progress */
+    }
+    
+    .sidebar-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .instructor {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .instructor-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    @media (max-width: 768px) {
+        .course-container {
+            flex-direction: column;
+        }
+        
+        .course-meta {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+</style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">Chem<span>Edu</span></a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#periodic">Periodic Table</a></li>
+        <li><a href="#labs">Virtual Labs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="full-screen hero">
+    <div class="hero-content">
+      <h1>Let <span>General Chemistry</span> Color Your Life</h1>
+      <p>Master the fundamental concepts of chemistry including atomic structure, chemical bonding, and reactions.</p>
+    </div>
+  </section>
+
+<!-- Main Course Content -->
+<div class="course-container">
+    <main class="course-content">
+        <section class="course-description">
+            <h2>Course Description</h2>
+            <p>This comprehensive introduction to chemistry covers the essential principles needed to understand matter and its transformations. You'll learn about atomic structure, chemical bonding, states of matter, and chemical reactions through interactive lessons and virtual experiments.</p>
+            
+            <h3>What You'll Learn</h3>
+            <ul>
+                <li>Understand the basic building blocks of matter</li>
+                <li>Learn how atoms combine to form compounds</li>
+                <li>Explore the different states of matter</li>
+                <li>Balance chemical equations</li>
+                <li>Predict products of chemical reactions</li>
+                <li>Apply concepts to real-world chemical systems</li>
+            </ul>
+        </section>
+
+        <section class="course-modules">
+            <h2>Course Modules</h2>
+            
+            <!-- Module 1 -->
+            <article class="module">
+                <div class="module-header">
+                    <h3>Module 1: Chemistry - The Study of Change</h3>
+                    <span class="progress-text">25% Complete</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%"></div>
+                </div>
+                <ul class="lesson-list">
+                    <li class="lesson-item completed">
+                        <a href="lesson.html">1.1 The Scientific Method</a>
+                        <span class="lesson-duration">15 min</span>
+                    </li>
+                    <li class="lesson-item completed">
+                        <a href="lesson.html">1.2 Classification of Matter</a>
+                        <span class="lesson-duration">18 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <a href="lesson.html">1.3 Physical and Chemical Properties</a>
+                        <span class="lesson-duration">22 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <a href="lesson.html">1.4 Measurement and Significant Figures</a>
+                        <span class="lesson-duration">25 min</span>
+                    </li>
+                </ul>
+            </article>
+            
+            <!-- Module 2 -->
+            <article class="module">
+                <div class="module-header">
+                    <h3>Module 2: Atoms, Molecules, and Ions</h3>
+                    <span class="progress-text">Not Started</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <ul class="lesson-list">
+                    <li class="lesson-item">
+                        <span>2.1 Dalton's Atomic Theory</span>
+                        <span class="lesson-duration">20 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <span>2.2 Structure of the Atom</span>
+                        <span class="lesson-duration">25 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <span>2.3 Periodic Table</span>
+                        <span class="lesson-duration">30 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <span>2.4 Molecules and Ions</span>
+                        <span class="lesson-duration">22 min</span>
+                    </li>
+                </ul>
+            </article>
+            
+            <!-- Module 3 -->
+            <article class="module">
+                <div class="module-header">
+                    <h3>Module 3: Stoichiometry</h3>
+                    <span class="progress-text">Not Started</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <ul class="lesson-list">
+                    <li class="lesson-item">
+                        <span>3.1 Atomic Mass</span>
+                        <span class="lesson-duration">18 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <span>3.2 Avogadro's Number and Molar Mass</span>
+                        <span class="lesson-duration">28 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <span>3.3 Percent Composition</span>
+                        <span class="lesson-duration">25 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <span>3.4 Chemical Equations</span>
+                        <span class="lesson-duration">30 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <span>3.5 Limiting Reagents</span>
+                        <span class="lesson-duration">35 min</span>
+                    </li>
+                </ul>
+            </article>
+            
+            <!-- Module 4 -->
+            <article class="module">
+                <div class="module-header">
+                    <h3>Module 4: Reactions in Aqueous Solutions</h3>
+                    <span class="progress-text">Not Started</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <ul class="lesson-list">
+                    <li class="lesson-item">
+                        <span>4.1 General Properties of Aqueous Solutions</span>
+                        <span class="lesson-duration">25 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <span>4.2 Precipitation Reactions</span>
+                        <span class="lesson-duration">30 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <span>4.3 Acid-Base Reactions</span>
+                        <span class="lesson-duration">35 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <span>4.4 Oxidation-Reduction Reactions</span>
+                        <span class="lesson-duration">40 min</span>
+                    </li>
+                    <li class="lesson-item">
+                        <span>4.5 Concentration of Solutions</span>
+                        <span class="lesson-duration">30 min</span>
+                    </li>
+                </ul>
+            </article>
+
+
+<!-- Module 5: Gases -->
+<article class="module">
+    <div class="module-header">
+        <h3>Module 5: Gases</h3>
+        <span class="progress-text">Not Started</span>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%"></div>
+    </div>
+    <ul class="lesson-list">
+        <li class="lesson-item">
+            <span>5.1 Properties of Gases</span>
+            <span class="lesson-duration">20 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>5.2 Gas Laws (Boyle, Charles, Avogadro)</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>5.3 Ideal Gas Equation</span>
+            <span class="lesson-duration">25 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>5.4 Dalton's Law of Partial Pressures</span>
+            <span class="lesson-duration">25 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>5.5 Kinetic Molecular Theory</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+    </ul>
+</article>
+
+<!-- Module 6: Thermochemistry -->
+<article class="module">
+    <div class="module-header">
+        <h3>Module 6: Thermochemistry</h3>
+        <span class="progress-text">Not Started</span>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%"></div>
+    </div>
+    <ul class="lesson-list">
+        <li class="lesson-item">
+            <span>6.1 Energy Changes in Chemical Reactions</span>
+            <span class="lesson-duration">25 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>6.2 Introduction to Thermodynamics</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>6.3 Enthalpy and Calorimetry</span>
+            <span class="lesson-duration">35 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>6.4 Hess's Law</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>6.5 Standard Enthalpies of Formation</span>
+            <span class="lesson-duration">25 min</span>
+        </li>
+    </ul>
+</article>
+
+<!-- Module 7: Quantum Theory and Atomic Structure -->
+<article class="module">
+    <div class="module-header">
+        <h3>Module 7: Quantum Theory and Atomic Structure</h3>
+        <span class="progress-text">Not Started</span>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%"></div>
+    </div>
+    <ul class="lesson-list">
+        <li class="lesson-item">
+            <span>7.1 Nature of Light</span>
+            <span class="lesson-duration">25 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>7.2 Bohr's Theory of the Hydrogen Atom</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>7.3 Quantum Numbers</span>
+            <span class="lesson-duration">35 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>7.4 Atomic Orbitals</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>7.5 Electron Configurations</span>
+            <span class="lesson-duration">40 min</span>
+        </li>
+    </ul>
+</article>
+
+<!-- Module 8: Periodic Relationships -->
+<article class="module">
+    <div class="module-header">
+        <h3>Module 8: Periodic Relationships</h3>
+        <span class="progress-text">Not Started</span>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%"></div>
+    </div>
+    <ul class="lesson-list">
+        <li class="lesson-item">
+            <span>8.1 Development of the Periodic Table</span>
+            <span class="lesson-duration">20 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>8.2 Periodic Classification</span>
+            <span class="lesson-duration">25 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>8.3 Periodic Variation in Properties</span>
+            <span class="lesson-duration">35 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>8.4 Ionization Energy</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>8.5 Electron Affinity</span>
+            <span class="lesson-duration">25 min</span>
+        </li>
+    </ul>
+</article>
+
+<!-- Module 9: Chemical Bonding -->
+<article class="module">
+    <div class="module-header">
+        <h3>Module 9: Chemical Bonding</h3>
+        <span class="progress-text">Not Started</span>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%"></div>
+    </div>
+    <ul class="lesson-list">
+        <li class="lesson-item">
+            <span>9.1 Lewis Dot Symbols</span>
+            <span class="lesson-duration">20 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>9.2 Ionic Bonding</span>
+            <span class="lesson-duration">25 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>9.3 Covalent Bonding</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>9.4 Electronegativity and Polarity</span>
+            <span class="lesson-duration">35 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>9.5 Formal Charge and Resonance</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>9.6 VSEPR Theory</span>
+            <span class="lesson-duration">40 min</span>
+        </li>
+    </ul>
+</article>
+
+<!-- Module 10: Chemical Equilibrium -->
+<article class="module">
+    <div class="module-header">
+        <h3>Module 10: Chemical Equilibrium</h3>
+        <span class="progress-text">Not Started</span>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%"></div>
+    </div>
+    <ul class="lesson-list">
+        <li class="lesson-item">
+            <span>10.1 Concept of Equilibrium</span>
+            <span class="lesson-duration">25 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>10.2 Equilibrium Constants</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>10.3 Le Chatelier's Principle</span>
+            <span class="lesson-duration">35 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>10.4 Calculating Equilibrium Concentrations</span>
+            <span class="lesson-duration">40 min</span>
+        </li>
+    </ul>
+</article>
+
+<!-- Module 11: Acids and Bases -->
+<article class="module">
+    <div class="module-header">
+        <h3>Module 11: Acids and Bases</h3>
+        <span class="progress-text">Not Started</span>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%"></div>
+    </div>
+    <ul class="lesson-list">
+        <li class="lesson-item">
+            <span>11.1 Acid-Base Theories</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>11.2 pH Scale</span>
+            <span class="lesson-duration">25 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>11.3 Strong vs Weak Acids/Bases</span>
+            <span class="lesson-duration">35 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>11.4 Acid-Base Titrations</span>
+            <span class="lesson-duration">40 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>11.5 Buffers</span>
+            <span class="lesson-duration">35 min</span>
+        </li>
+    </ul>
+</article>
+
+<!-- Module 12: Electrochemistry -->
+<article class="module">
+    <div class="module-header">
+        <h3>Module 12: Electrochemistry</h3>
+        <span class="progress-text">Not Started</span>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%"></div>
+    </div>
+    <ul class="lesson-list">
+        <li class="lesson-item">
+            <span>12.1 Redox Reactions Review</span>
+            <span class="lesson-duration">25 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>12.2 Galvanic Cells</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>12.3 Standard Reduction Potentials</span>
+            <span class="lesson-duration">35 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>12.4 Nernst Equation</span>
+            <span class="lesson-duration">40 min</span>
+        </li>
+        <li class="lesson-item">
+            <span>12.5 Batteries and Fuel Cells</span>
+            <span class="lesson-duration">30 min</span>
+        </li>
+    </ul>
+</article>
+    </main>
+
+    <!-- Course Sidebar -->
+    <aside class="course-sidebar">
+        <div class="sidebar-card">
+            <h3>Course Progress</h3>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <p>8% Complete (2 of 24 lessons)</p>
+            </div>
+            <a href="#" class="btn" style="display: block; text-align: center; margin-top: 1rem;">Continue Learning</a>
+        </div>
+        
+        <div class="sidebar-card">
+            <h3>About the Instructor</h3>
+            <div class="instructor">
+                <img src="instructor.jpg" alt="Muhammad Zainur Rifai" class="instructor-img">
+                <div>
+                    <h4>Muhammad Zainur Rifai</h4>
+                    <p>Chemistry Teacher</p>
+                </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, quos. Assumenda nihil deserunt dolorem, temporibus dolores atque quisquam commodi mollitia earum, distinctio doloribus ullam placeat, doloremque quod dicta. Exercitationem, doloribus.</p>
+        </div>
+        
+        <div class="sidebar-card">
+            <h3>Course Resources</h3>
+            <ul>
+                <li><a href="#">Downloadable Worksheets</a></li>
+                <li><a href="#">Periodic Table PDF</a></li>
+                <li><a href="#">Common Ions Cheat Sheet</a></li>
+                <li><a href="#">Practice Problems</a></li>
+            </ul>
+        </div>
+    </aside>
+</div>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-logo">Chem<span>Edu</span></div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#periodic">Periodic Table</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Study Guides</a></li>
+            <li><a href="#">Practice Problems</a></li>
+            <li><a href="#">Video Library</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2023 ChemEdu. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>

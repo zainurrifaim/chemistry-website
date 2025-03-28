@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry Snake: Ionic Compounds</title>
+    <meta name="description" content="Learn ionic compounds through gameplay - collect ions to form chemical compounds">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Section (Yellow) -->
+    <header class="header">
+        <h1>Chemistry Snake: Ionic Compounds</h1>
+    </header>
+    
+    <!-- Menu Section (Red) -->
+    <nav class="menu">
+        <div class="game-info">
+            <span id="score">Score: 100</span>
+            <span id="level">Level: 1</span>
+        </div>
+        <div class="game-controls">
+            <button id="restart-btn">Restart</button>
+            <button id="hint-btn">Hint</button>
+        </div>
+    </nav>
+    
+    <!-- Main Content Area (Green) -->
+    <main class="content">
+        <!-- Game Board (uses full available space) -->
+        <div class="game-board">
+            <canvas id="game" aria-label="Chemistry snake game board"></canvas>
+        </div>
+        
+        <!-- Info Panel -->
+        <aside class="info-panel">
+            <section class="compound-info">
+                <h2>Current Compound</h2>
+                <div class="compound-details">
+                    <p><strong>Name:</strong> <span id="compound-name">Ammonium Phosphate</span></p>
+                    <p><strong>Formula:</strong> <span id="compound-formula">(NH₄)₃PO₄</span></p>
+                </div>
+                
+                <h3>Requirements</h3>
+                <div id="cation-req">NH₄⁺: 0/3</div>
+                <div id="anion-req">PO₄³⁻: 0/1</div>
+            </section>
+            
+            <section class="game-instructions">
+                <h3>How to Play</h3>
+                <ul>
+                    <li>Use arrow keys to move the snake</li>
+                    <li>Collect required ions to form compounds</li>
+                    <li>Correct ions: +10 points × charge</li>
+                    <li>Wrong ions: -15 points × charge</li>
+                </ul>
+            </section>
+            
+            <section class="ion-key">
+                <h3>Ion Colors</h3>
+                <div class="ion-key-item">
+                    <span class="ion-color cation"></span>
+                    <span>Cations (positive)</span>
+                </div>
+                <div class="ion-key-item">
+                    <span class="ion-color anion"></span>
+                    <span>Anions (negative)</span>
+                </div>
+            </section>
+        </aside>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+</html>
