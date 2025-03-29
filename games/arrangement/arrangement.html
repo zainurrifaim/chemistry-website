@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChemEdu - Interactive Periodic Table Game</title>
+    <link rel="stylesheet" href="arrangement.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="game-header">
+        <div class="title-container">
+            <h1>ChemEdu</h1>
+            <p class="subtitle">Interactive Periodic Table Challenge</p>
+        </div>
+        
+        <div class="controls-container">
+            <div class="difficulty-selector">
+                <button class="difficulty-btn active" data-difficulty="easy">Easy</button>
+                <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+                <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+            </div>
+            
+            <div class="property-selector">
+                <label for="property-select">Sort by:</label>
+                <select id="property-select">
+                    <!-- Options will be added by JavaScript -->
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="game-container">
+        <section class="game-board">
+            <div class="element-pool" id="element-pool">
+                <h2>Elements Pool</h2>
+                <!-- Elements will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="arrangement-zone" id="arrangement-zone">
+                <h2>Arrange Elements Here</h2>
+                <div class="current-property" id="current-property">
+                    Current: Atomic Mass
+                </div>
+                <div class="drop-instructions">
+                    Drag elements here in order of <span id="property-display">atomic mass</span>
+                </div>
+            </div>
+        </section>
+
+        <aside class="game-status">
+            <div class="scoreboard">
+                <span class="label">Score:</span>
+                <span id="score" class="value">0</span>
+            </div>
+            <div class="timer">
+                <span class="label">Time:</span>
+                <span id="time" class="value">120</span>s
+            </div>
+            <div class="hints">
+                <span class="label">Hints:</span>
+                <span id="hints" class="value">3</span>
+            </div>
+            <button id="start-game" class="game-button">Start Game</button>
+            <button id="reset-game" class="game-button secondary">Reset</button>
+        </aside>
+    </main>
+
+    <div id="tooltip" class="element-tooltip"></div>
+
+    <footer class="game-footer">
+        <p>Educational game for chemistry learning</p>
+        <a href="#" id="full-table-link">View Complete Periodic Table</a>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    
+    <!-- Game Script -->
+    <script src="arrangement.js"></script>
+</body>
+</html>
