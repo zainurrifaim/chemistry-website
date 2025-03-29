@@ -42,6 +42,7 @@ body {
     --metalloid-conventional: var(--secondary); /* Teal */
     --post-transition-conventional: #9e9e9e;    /* New: Grey */
     --nonmetal-conventional: #8bc34a;           /* New: Lime */
+    --polyatomic-nonmetal: #4c8e47;            /* New: Green */
 }
 
 
@@ -333,6 +334,7 @@ body {
 .nonmetal     { background: var(--nonmetal-conventional); }
 .lanthanide            { background: var(--transition-conventional); }
 .actinide              { background: var(--transition-conventional); }
+.polyatomic-nonmetal    { background: var(--polyatomic-nonmetal);}
 
 /* Fun Games Section */
 .games {
