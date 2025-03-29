@@ -201,7 +201,7 @@ body {
 /* Hero Section */
 .hero {
     height: 100vh; /* Full viewport height */
-    background: url('images/hero.png') no-repeat center center/cover;
+    background: url('media/images/hero.png') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -295,7 +295,7 @@ body {
 /* Periodic Table Section */
 .periodic {
     height: 100vh; /* Full viewport height */
-    background: url('images/periodic-table.png') no-repeat center center/cover;
+    background: url('media/images/periodic-table.png') no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -339,7 +339,7 @@ body {
 /* Fun Games Section */
 .games {
     height: 100vh; /* Full viewport height */
-    background: url('images/fun-games.png') no-repeat center center/cover;
+    background: url('media/images/fun-games.png') no-repeat center center/cover;
     display: flex;
     padding: 20px;
 }
