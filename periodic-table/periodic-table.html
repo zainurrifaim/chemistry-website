@@ -3,55 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChemEdu | Interactive Chemistry Learning</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="images/icon.png"> <!-- For modern browsers -->
-  <link rel="shortcut icon" href="images/favicon.ico"> <!-- For older browsers -->
+  <title>ChemEdu | Interactive Periodic Table</title>
+    <link rel="stylesheet" href="../style.css">
+  <link rel="icon" type="image/png" href="../images/icon.png">
+  <link rel="shortcut icon" href="../images/favicon.ico">
 </head>
 <body>
   <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
         <a href="#" class="logo">Chem<span>Edu</span></a>
-        
-        <!-- Hamburger Button -->
         <button class="hamburger" aria-label="Menu">
             <span class="hamburger-box">
                 <span class="hamburger-inner"></span>
             </span>
         </button>
-        
         <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
+            <li><a href="../index.html">Home</a></li>
             <li><a href="#courses">Courses</a></li>
             <li><a href="#periodic">Periodic Table</a></li>
-            <li><a href="#games">Fun Games</a></li>
+            <li><a href="../games/games.html">Fun Games</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </div>
-</nav>
+  </nav>
 
-  <!-- Periodic Table Section -->
-  <section id="periodic" class="full-screen periodic">
-    <div class="section-container">
-      <h2 class="section-title">Interactive Periodic Table</h2>
-      <div class="table-preview">
-        <!-- First row -->
-        <div class="element alkali-metal">H</div>
-        <div class="element noble-gas">He</div>
-        <!-- Second row -->
-        <div class="element alkali-metal">Li</div>
-        <div class="element alkaline-earth-metal">Be</div>
-        <div class="element metalloid">B</div>
-        <div class="element nonmetal">C</div>
-        <div class="element nonmetal">N</div>
-        <div class="element nonmetal">O</div>
-        <div class="element halogen">F</div>
-        <div class="element noble-gas">Ne</div>
+  <!-- Main Periodic Table Content -->
+  <main class="periodic-container">
+    <fieldset class="periodic-filters">
+      <legend>Element Filters</legend>
+      <div class="filter-group">
+        <label><input type="checkbox" id="alk"> Alkali Metals</label>
+        <label><input type="checkbox" id="aec"> Alkaline Earth</label>
+        <label><input type="checkbox" id="trn"> Transition Metals</label>
+        <label><input type="checkbox" id="trm"> Post-Transition</label>
       </div>
-      <a href="#periodic" class="btn primary">Explore Full Table</a>
-    </div>
-  </section>
+      <div class="filter-group">
+        <label><input type="checkbox" id="met"> Metalloids</label>
+        <label><input type="checkbox" id="rnm"> Reactive Non-Metals</label>
+        <label><input type="checkbox" id="hln"> Halogens</label>
+        <label><input type="checkbox" id="nbl"> Noble Gases</label>
+      </div>
+      <div class="filter-group">
+        <label><input type="checkbox" id="lan"> Lanthanides</label>
+        <label><input type="checkbox" id="act"> Actinides</label>
+        <label><input type="checkbox" id="brb"> Heisenberg Mode</label>
+      </div>
+    </fieldset>
+
+    <ol id="periodic-table" class="periodic-table"></ol>
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
@@ -77,7 +78,7 @@
         <div class="footer-column">
           <h4>Company</h4>
           <ul>
-            <li><a href="about-us/about-us.html">About Us</a></li>
+            <li><a href="../about-us/about-us.html">About Us</a></li>
             <li><a href="#">Careers</a></li>
             <li><a href="#">Privacy Policy</a></li>
           </ul>
@@ -88,6 +89,46 @@
       &copy; 2023 ChemEdu. All rights reserved.
     </div>
   </footer>
-  <script src="index.js"></script>
+
+  <script>
+    // Simplified element loader - keep your existing JSON processing logic
+    async function loadPeriodicTable() {
+        const response = await fetch('../json/elements.json');
+        const data = await response.json();
+        const table = document.getElementById('periodic-table');
+
+        data.elements.forEach(element => {
+            const li = document.createElement('li');
+            li.className = getCategoryClass(element.category);
+            li.style.gridColumn = element.xpos;
+            li.style.gridRow = element.ypos;
+            li.innerHTML = `
+                <abbr title="${element.name}">${element.symbol}</abbr>
+                <div class="number">${element.number}</div>
+                <div class="mass">${element.atomic_mass.toFixed(3)}</div>
+            `;
+            table.appendChild(li);
+        });
+    }
+
+    function getCategoryClass(category) {
+        const classMap = {
+            'diatomic nonmetal': 'rnm',
+            'noble gas': 'nbl',
+            'alkali metal': 'alk',
+            'alkaline earth metal': 'aec',
+            'transition metal': 'trn',
+            'post-transition metal': 'trm',
+            'metalloid': 'met',
+            'halogen': 'hln',
+            'lanthanide': 'lan',
+            'actinide': 'act',
+            'polyatomic nonmetal': 'pnm'
+        };
+        return classMap[category.toLowerCase()] || '';
+    }
+
+    window.addEventListener('DOMContentLoaded', loadPeriodicTable);
+  </script>
 </body>
 </html>

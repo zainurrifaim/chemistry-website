@@ -931,3 +931,173 @@ Print styles
         display: none;
     }
 }
+
+/* Periodic Table Styles */
+.periodic-container {
+    max-width: 100%;
+    padding: 2rem 1rem;
+    overflow-x: auto;
+    background: var(--light);
+}
+
+.periodic-filters {
+    border: 1px dashed color-mix(in srgb, var(--dark), transparent 60%);
+    background: color-mix(in srgb, var(--light), white 10%);
+    padding: 1rem;
+    margin: 2rem 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#periodic-table {
+    --element-size: 3.5rem;
+    --gap-size: 0.25rem;
+    
+    display: grid;
+    gap: var(--gap-size);
+    grid-template-columns: repeat(18, var(--element-size));
+    justify-content: center;
+    margin: 0 auto;
+    padding: 1rem 0;
+    position: relative;
+}
+
+#periodic-table li {
+    aspect-ratio: 1;
+    background: var(--light);
+    border-radius: 4px;
+    display: grid;
+    place-items: center;
+    transition: all 0.2s ease;
+    grid-template-areas: 
+        "number mass"
+        "symbol symbol"
+        "name name";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.5fr 1fr 0.5fr;
+    padding: 0.25rem;
+    position: relative;
+}
+
+#periodic-table abbr {
+    grid-area: symbol;
+    font-size: 1.25em;
+    font-weight: 700;
+    color: var(--dark);
+    text-decoration: none;
+}
+
+.number,
+.mass {
+    font-size: 0.65em;
+    color: color-mix(in srgb, var(--dark), transparent 30%);
+}
+
+.number { 
+    grid-area: number;
+    justify-self: start;
+}
+
+.mass { 
+    grid-area: mass;
+    justify-self: end;
+}
+
+/* Category Colors */
+#periodic-table .alk { background: var(--alkali-conventional); }
+#periodic-table .aec { background: var(--alkaline-earth-conventional); }
+#periodic-table .trn { background: var(--transition-conventional); }
+#periodic-table .pnm { background: #4c8e47; }
+#periodic-table .hln { background: var(--halogen-conventional); }
+#periodic-table .nbl { background: var(--noble-conventional); }
+#periodic-table .met { background: var(--metalloid-conventional); }
+#periodic-table .trm { background: var(--post-transition-conventional); }
+#periodic-table .rnm { background: var(--nonmetal-conventional); }
+#periodic-table .lan { background: color-mix(in srgb, var(--accent1), var(--accent5))); }
+#periodic-table .act { background: color-mix(in srgb, var(--accent3), var(--accent4))); }
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    #periodic-table {
+        --element-size: 3.75rem;
+        grid-template-columns: repeat(18, minmax(3.25rem, 1fr));
+        overflow-x: auto;
+        padding: 1rem;
+        justify-content: start;
+    }
+}
+
+@media (max-width: 768px) {
+    .periodic-container {
+        padding: 0 0.5rem;
+    }
+
+    #periodic-table {
+        --element-size: 3.25rem;
+        gap: 0.15rem;
+    }
+
+    #periodic-table abbr {
+        font-size: 1em;
+    }
+
+    .periodic-filters {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    #periodic-table {
+        --element-size: 2.75rem;
+    }
+
+    .number,
+    .mass {
+        display: none;
+    }
+}
+
+/* Interactive States */
+#periodic-table li:hover {
+    transform: scale(1.15);
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Tooltip Styles */
+.element-tooltip {
+    position: fixed;
+    background: var(--light);
+    border: 2px solid var(--primary);
+    border-radius: 6px;
+    padding: 1rem;
+    max-width: 300px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-size: 0.9em;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.element-tooltip h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.2em;
+}
+
+/* Heisenberg Mode Adjustments */
+body:has(#brb:checked) #periodic-table li {
+    background: color-mix(in srgb, var(--dark), transparent 70%);
+    color: color-mix(in srgb, var(--light), transparent 40%);
+}
+
+body:has(#brb:checked) #periodic-table li:nth-of-type(35),
+body:has(#brb:checked) #periodic-table li:nth-of-type(56) {
+    background: linear-gradient(135deg, var(--secondary), color-mix(in srgb, var(--dark), var(--accent5)));
+}
