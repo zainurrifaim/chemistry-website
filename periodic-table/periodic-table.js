@@ -192,19 +192,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const groups = [...new Set(allElements.map(e => e.GroupBlock))];
         
         controlsContainer.innerHTML = `
-            <div class="search-container">
-                <input type="text" placeholder="Search elements..." class="search-input">
-                <div class="filter-options">
-                    <label class="filter-option active" data-filter="all">
-                        <input type="radio" name="element-filter" checked> All Elements
-                    </label>
-                    ${groups.map(group => `
-                        <label class="filter-option" data-filter="${group}">
-                            <input type="radio" name="element-filter"> ${group}
-                        </label>
-                    `).join('')}
-                </div>
-            </div>
+    <div class="search-filter-container">
+        <!-- Search Section -->
+        <div class="search-section">
+        <input type="text" placeholder="Search elements..." class="search-input">
+        </div>
+
+    <!-- Divider -->
+        <div class="filter-divider"></div>
+
+    <!-- Filter Section -->
+        <div class="filter-section">
+        <div class="filter-options">
+            <label class="filter-option active" data-filter="all">
+                <input type="radio" name="element-filter" checked> All Elements
+            </label>
+            ${groups.map(group => `
+                <label class="filter-option" data-filter="${group}">
+                    <input type="radio" name="element-filter"> ${group}
+                </label>
+            `).join('')}
+        </div>
+        </div>
+    </div>
         `;
 
         // Event listeners
