@@ -273,8 +273,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `;
-
+    
+        // Close when clicking the X button
         modal.querySelector('.close').addEventListener('click', () => modal.remove());
+    
+        // Close when clicking outside the modal content
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+    
+        // Add escape key listener
+        document.addEventListener('keydown', function handleEscape(e) {
+            if (e.key === 'Escape') {
+                modal.remove();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        });
+    
         document.body.appendChild(modal);
     }
 

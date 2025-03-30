@@ -1,42 +1,34 @@
 /* ======================
-   BASE STYLES 
-   ====================== */
-   * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
-}
-
-#loading {
-    text-align: center;
-    font-size: 1.2rem;
-    padding: 20px;
-}
-
-/* ======================
    PERIODIC TABLE STYLES 
    ====================== */
+   .periodic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+.periodic-table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Horizontal scrolling only */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 10px;
+}
+
 .periodic-table {
     display: grid;
     grid-template-columns: repeat(18, minmax(40px, 1fr));
-    grid-auto-rows: minmax(60px, auto);
+    grid-auto-rows: minmax(40px, 1fr); /* Square tiles */
     gap: 2px;
-    max-width: 1200px;
-    margin: 20px auto;
-    position: relative;
+    min-width: 800px; /* Minimum width to maintain proportions */
+    margin: 0 auto;
+    aspect-ratio: 18/10; /* Maintain table proportions */
 }
 
 .element-tile {
     background-color: #ddd;
     border-radius: 4px;
-    padding: 5px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -44,6 +36,7 @@ body {
     align-items: center;
     position: relative;
     transition: all 0.3s ease;
+    aspect-ratio: 1/1; /* Perfect squares */
 }
 
 .element-tile:hover {
@@ -57,37 +50,32 @@ body {
     filter: grayscale(70%);
 }
 
-/* Element tile content */
+/* Element tile content - Mobile first (only show symbol/number) */
 .atomic-number {
-    font-size: 0.5rem;
+    font-size: 0.6rem;
     position: absolute;
-    top: 3px;
-    left: 5px;
+    top: 2px;
+    left: 3px;
+    text-shadow: 0 0 2px white;
 }
 
 .symbol {
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: bold;
-    margin: 2px 0;
+    text-shadow: 0 0 2px white;
 }
 
-.name {
-    font-size: 0.5rem;
-    text-align: center;
-}
-
-.atomic-mass {
-    font-size: 0.5rem;
-    position: absolute;
-    top: 3px;
-    right: 5px;
+.name, .atomic-mass {
+    display: none; /* Hidden on mobile */
 }
 
 /* ======================
    CONTROL STYLES 
    ====================== */
 .controls {
-    margin-bottom: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 20px;
     padding: 15px;
     background: white;
     border-radius: 8px;
@@ -95,12 +83,13 @@ body {
 }
 
 .search-box {
-    margin-bottom: 15px;
+    width: 100%;
+    margin-bottom: 15px; /* Space between search and filters */
 }
 
 .search-input {
     width: 100%;
-    padding: 10px;
+    padding: 10px 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1rem;
@@ -110,6 +99,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    justify-content: center; /* Centered filters */
 }
 
 .filter-option {
@@ -118,27 +108,63 @@ body {
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.2s ease;
-}
-
-.filter-option:hover {
-    background: #e0e0e0;
+    border: 1px solid #ddd; /* Reduced border size */
 }
 
 .filter-option.active {
-    background: #4CAF50;
+    background: #db243b;
     color: white;
+    border-color: #db243b;
+}
+
+/* ======================
+   RESPONSIVE ENHANCEMENTS 
+   ====================== */
+@media (min-width: 768px) {
+    /* Show full info on tablets/desktops */
+    .name, .atomic-mass {
+        display: block;
+    }
+    
+    .name {
+        font-size: 0.5rem;
+        margin-top: 2px;
+    }
+    
+    .atomic-mass {
+        font-size: 0.5rem;
+        position: absolute;
+        top: 2px;
+        right: 3px;
+    }
+    
+    .symbol {
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 992px) {
+    /* Larger tiles on desktop */
+    .periodic-table {
+        grid-template-columns: repeat(18, minmax(50px, 1fr));
+        grid-auto-rows: minmax(50px, 1fr);
+    }
+    
+    .symbol {
+        font-size: 1.4rem;
+    }
 }
 
 /* ======================
    MODAL STYLES 
    ====================== */
-.modal {
+   .modal {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -150,13 +176,15 @@ body {
     border-radius: 8px;
     width: 90%;
     max-width: 500px;
-    animation: modalOpen 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
 }
 
 .modal-header {
     padding: 20px;
     border-radius: 8px 8px 0 0;
-    color: white;
+    color: black;
 }
 
 .modal-header h2 {
@@ -206,43 +234,3 @@ body {
         transform: translateY(0);
     }
 }
-
-/* ======================
-   RESPONSIVE STYLES 
-   ====================== */
-@media (max-width: 768px) {
-    .periodic-table {
-        grid-template-columns: repeat(9, minmax(30px, 1fr));
-    }
-    
-    .element-tile {
-        padding: 3px;
-    }
-    
-    .symbol {
-        font-size: 1rem;
-    }
-    
-    .modal-body {
-        grid-template-columns: 1fr;
-    }
-}
-
-.periodic-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    min-height: 100vh;
-  }
-  
-  .periodic-controls {
-    width: 100%;
-    max-width: 1200px;
-    margin-bottom: 1rem;
-  }
-  
-  .periodic-table-wrapper {
-    width: 100%;
-    max-width: 1200px;
-  }

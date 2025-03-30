@@ -33,19 +33,6 @@ body {
     --warning: #e56a3a;        /* Warning states */
     --danger: #db243b;         /* Danger/error states */
 
-     /* NEW CONVENTIONAL COLORS (ADDITIONS ONLY) */
-    --alkali-conventional: var(--accent1);      /* Orange */
-    --alkaline-earth-conventional: #ffeb3b;     /* New: Yellow */
-    --transition-conventional: #2196f3;         /* New: Blue */
-    --halogen-conventional: #4caf50;            /* New: Green */
-    --noble-conventional: var(--accent3);       /* Purple */
-    --metalloid-conventional: var(--secondary); /* Teal */
-    --post-transition-conventional: #9e9e9e;    /* New: Grey */
-    --nonmetal-conventional: #8bc34a;           /* New: Lime */
-    --polyatomic-nonmetal: #4c8e47;            /* New: Green */
-}
-
-
 /* Full Screen Sections */
 .full-screen {
     min-height: 100vh;
@@ -324,17 +311,12 @@ body {
     transform: scale(1.1);
 }
 
-.alkali-metal          { background: var(--alkali-conventional); }
-.alkaline-earth-metal  { background: var(--alkaline-earth-conventional); }
-.transition-metal      { background: var(--transition-conventional); }
-.halogen               { background: var(--halogen-conventional); }
-.noble-gas             { background: var(--noble-conventional); }
-.metalloid             { background: var(--metalloid-conventional); }
-.post-transition-metal { background: var(--post-transition-conventional); }
-.nonmetal     { background: var(--nonmetal-conventional); }
-.lanthanide            { background: var(--transition-conventional); }
-.actinide              { background: var(--transition-conventional); }
-.polyatomic-nonmetal    { background: var(--polyatomic-nonmetal);}
+.alkali-metal          { background: #CC80FF; }
+.alkaline-earth-metal  { background: #C2FF00; }
+.metalloid             { background: #FFB5B5; }
+.nonmetal              { background: #909090; }
+.halogen               { background: #90E050; }
+.noble-gas             { background: #B3E3F5; }
 
 /* Fun Games Section */
 .games {
@@ -933,4 +915,3 @@ Print styles
         display: none;
     }
 }
-
