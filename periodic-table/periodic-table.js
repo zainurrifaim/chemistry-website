@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Element positioning grid (keep your existing grid definition)
     const elementGrid = {
         // Period 1
         1: {row: 1, col: 1},   // Hydrogen
@@ -138,8 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let allElements = [];
-    const tableContainer = document.createElement('div');
-    tableContainer.className = 'periodic-table';
+    const mainContainer = document.querySelector('.periodic-container');
+    const tableWrapper = document.querySelector('.periodic-table-wrapper');
+    const controlsContainer = document.querySelector('.periodic-controls');
 
     // Fetch and process element data
     fetch('../json/all-elements.json')
@@ -154,12 +156,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 return element;
             });
 
-            createPeriodicTable(allElements);
             setupControls();
+            createPeriodicTable(allElements);
         });
 
     function createPeriodicTable(elements) {
-        tableContainer.innerHTML = '';
+        tableWrapper.innerHTML = '';
+        
+        const table = document.createElement('div');
+        table.className = 'periodic-table';
         
         elements.forEach(element => {
             const tile = document.createElement('div');
@@ -167,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tile.style.gridRow = elementGrid[element.AtomicNumber]?.row || 'auto';
             tile.style.gridColumn = elementGrid[element.AtomicNumber]?.col || 'auto';
             tile.style.backgroundColor = `#${element.CPKHexColor || 'ddd'}`;
-            tile.dataset.group = element.GroupBlock; // Add group data attribute
+            tile.dataset.group = element.GroupBlock;
             
             tile.innerHTML = `
                 <div class="atomic-number">${element.AtomicNumber}</div>
@@ -177,13 +182,69 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
 
             tile.addEventListener('click', () => showElementDetails(element));
-            tableContainer.appendChild(tile);
+            table.appendChild(tile);
         });
-
-        document.body.appendChild(tableContainer);
+        
+        tableWrapper.appendChild(table);
     }
 
-    // [Keep your existing showElementDetails and createDetailRow functions here...]
+    function setupControls() {
+        const groups = [...new Set(allElements.map(e => e.GroupBlock))];
+        
+        controlsContainer.innerHTML = `
+            <div class="search-container">
+                <input type="text" placeholder="Search elements..." class="search-input">
+                <div class="filter-options">
+                    <label class="filter-option active" data-filter="all">
+                        <input type="radio" name="element-filter" checked> All Elements
+                    </label>
+                    ${groups.map(group => `
+                        <label class="filter-option" data-filter="${group}">
+                            <input type="radio" name="element-filter"> ${group}
+                        </label>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+
+        // Event listeners
+        controlsContainer.querySelector('.search-input').addEventListener('input', updateDisplay);
+        controlsContainer.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.filter-option').forEach(opt => 
+                    opt.classList.remove('active'));
+                this.classList.add('active');
+                updateDisplay();
+            });
+        });
+    }
+
+    function updateDisplay() {
+        const searchTerm = document.querySelector('.search-input').value.toLowerCase();
+        const selectedFilter = document.querySelector('.filter-option.active').dataset.filter;
+        
+        document.querySelectorAll('.element-tile').forEach(tile => {
+            // Reset all tiles first
+            tile.style.opacity = '1';
+            tile.style.filter = 'none';
+            tile.style.display = 'grid';
+            
+            // Apply group filter
+            if (selectedFilter !== 'all' && tile.dataset.group !== selectedFilter) {
+                tile.style.opacity = '0.3';
+                tile.style.filter = 'grayscale(70%)';
+            }
+            
+            // Apply search filter
+            if (searchTerm) {
+                const name = tile.querySelector('.name').textContent.toLowerCase();
+                const symbol = tile.querySelector('.symbol').textContent.toLowerCase();
+                if (!name.includes(searchTerm) && !symbol.includes(searchTerm)) {
+                    tile.style.display = 'none';
+                }
+            }
+        });
+    }
 
     function showElementDetails(element) {
         const modal = document.createElement('div');
@@ -225,68 +286,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="detail-value">${value} ${unit}</span>
             </div>
         `;
-    }
-
-    function setupControls() {
-        const groups = [...new Set(allElements.map(e => e.GroupBlock))];
-        const controlsContainer = document.createElement('div');
-        controlsContainer.className = 'controls';
-        
-        // Search input
-        controlsContainer.innerHTML = `
-            <div class="search-box">
-                <input type="text" placeholder="Search elements..." class="search-input">
-            </div>
-            <div class="filter-options">
-                <label class="filter-option active" data-filter="all">
-                    <input type="radio" name="element-filter" checked> All Elements
-                </label>
-                ${groups.map(group => `
-                    <label class="filter-option" data-filter="${group}">
-                        <input type="radio" name="element-filter"> ${group}
-                    </label>
-                `).join('')}
-            </div>
-        `;
-        
-        // Event listeners
-        controlsContainer.querySelector('.search-input').addEventListener('input', updateDisplay);
-        controlsContainer.querySelectorAll('.filter-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.filter-option').forEach(opt => 
-                    opt.classList.remove('active'));
-                this.classList.add('active');
-                updateDisplay();
-            });
-        });
-        
-        document.body.prepend(controlsContainer);
-    }
-
-    function updateDisplay() {
-        const searchTerm = document.querySelector('.search-input').value.toLowerCase();
-        const selectedFilter = document.querySelector('.filter-option.active').dataset.filter;
-        
-        document.querySelectorAll('.element-tile').forEach(tile => {
-            // Reset all tiles first
-            tile.style.opacity = '1';
-            tile.style.filter = 'none';
-            tile.style.display = 'grid';
-            
-            // Apply group filter
-            if (selectedFilter !== 'all' && tile.dataset.group !== selectedFilter) {
-                tile.style.opacity = '0.3';
-                tile.style.filter = 'grayscale(70%)';
-            }
-            
-            // Apply search filter
-            if (searchTerm) {
-                const name = tile.querySelector('.name').textContent.toLowerCase();
-                const symbol = tile.querySelector('.symbol').textContent.toLowerCase();
-                if (!name.includes(searchTerm) && !symbol.includes(searchTerm)) {
-                    tile.style.display = 'none';
-                }
-            }
-        });
     }
 });

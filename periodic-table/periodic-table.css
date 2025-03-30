@@ -6,7 +6,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f2f5;
@@ -228,3 +227,22 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+.periodic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    min-height: 100vh;
+  }
+  
+  .periodic-controls {
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 1rem;
+  }
+  
+  .periodic-table-wrapper {
+    width: 100%;
+    max-width: 1200px;
+  }
