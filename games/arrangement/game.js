@@ -88,7 +88,7 @@ class ElementSorterGame {
    */
   async loadElementData() {
     try {
-      const response = await fetch('../../json/elements.json');
+      const response = await fetch('../../back-up/elements.json');
       const data = await response.json();
       
       this.elementData = data.elements

@@ -638,7 +638,6 @@ body {
     }
     
     .nav-links {
-        margin-top: 15px;
         flex-wrap: wrap;
         justify-content: center;
     }
@@ -964,8 +963,8 @@ Print styles
    ====================== */
    .hamburger {
     display: none; /* Hidden on desktop by default */
+    width: 100%;
     cursor: pointer;
-    background-color: transparent;
     border: 0;
     margin: 0;
     padding: 15px;
@@ -988,7 +987,7 @@ Print styles
     width: 30px;
     height: 24px;
     display: inline-block;
-    position: relative;
+    
 }
 
 .hamburger-inner {
@@ -1046,7 +1045,7 @@ Print styles
 @media (max-width: 768px) {
     /* Hamburger Visibility */
     .hamburger {
-        display: inline-block;
+        display: flex;
     }
     
     /* Mobile Menu Container */
