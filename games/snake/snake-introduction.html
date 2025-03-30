@@ -7,265 +7,6 @@
   <link rel="icon" type="image/png" href="../../media/images/icon.png"> <!-- For modern browsers -->
   <link rel="shortcut icon" href="../../media/images/favicon.ico"> <!-- For older browsers -->
   <link rel="stylesheet" href="../../style.css">
-  <style>
-    /* Responsive design with consistent spacing */
-    :root {
-      --primary: #db243b;        /* Vibrant red */
-      --secondary: #3c808b;      /* Teal */
-      --accent1: #e56a3a;        /* Orange */
-      --accent2: #c3df3a;        /* Lime green */
-      --accent3: #b274b9;        /* Purple */
-      --accent4: #c62f8d;        /* Pink */
-      --accent5: #813b28;        /* Brown */
-      --light: #e6e8e8;         /* Light background */
-      --dark: #0d0e0e;          /* Dark text */
-      --highlight: #b93210;      /* Darker red for highlights */
-      --success: #c3df3a;        /* Success states */
-      --warning: #e56a3a;        /* Warning states */
-      --danger: #db243b;         /* Danger/error states */
-      
-      --space-unit: 16px;
-      --space-xs: calc(var(--space-unit) * 0.5);  /* 8px */
-      --space-sm: calc(var(--space-unit) * 1);    /* 16px */
-      --space-md: calc(var(--space-unit) * 1.5);  /* 24px */
-      --space-lg: calc(var(--space-unit) * 2);    /* 32px */
-      --space-xl: calc(var(--space-unit) * 2.5);  /* 40px */
-      
-      --content-padding: var(--space-sm);
-    }
-  
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: var(--dark);
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      min-width: 320px; /* Prevent horizontal scrolling on very small devices */
-    }
-  
-    .game-section {
-      max-width: 900px;
-      margin: var(--space-sm) auto var(--space-md) auto;
-      padding: 0 var(--content-padding);
-      box-sizing: border-box;
-    }
-  
-    .concept-group {
-      margin-bottom: var(--space-md);
-      padding: var(--space-md) var(--content-padding);
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border-left: 4px solid var(--primary);
-      box-sizing: border-box;
-    }
-  
-    h2 {
-      color: var(--primary);
-      margin: var(--space-md) 0 var(--space-sm) 0;
-      padding: 0 0 var(--space-xs) 0;
-      font-size: clamp(1.5rem, 4vw, 2rem); /* Responsive font size */
-      border-bottom: 2px solid var(--light);
-      text-align: center;
-    }
-  
-    h3 {
-      color: var(--secondary);
-      margin: var(--space-md) 0 var(--space-xs) 0;
-      font-size: clamp(1.25rem, 3.5vw, 1.5rem);
-    }
-  
-    h4 {
-      color: var(--accent5);
-      margin: var(--space-sm) 0 var(--space-xs) 0;
-      font-size: clamp(1.1rem, 3vw, 1.25rem);
-      text-align: center;
-    }
-  
-    ul, ol {
-      padding-left: var(--space-md);
-      margin: var(--space-sm) 0;
-    }
-  
-    li {
-      margin-bottom: var(--space-xs);
-    }
-  
-    p {
-      margin: var(--space-sm) 0;
-      font-size: clamp(0.9rem, 2.5vw, 1rem);
-    }
-  
-    strong {
-      color: var(--highlight);
-    }
-  
- 
-    .chem-equation {
-      background-color: white;
-      padding: var(--space-sm) var(--content-padding);
-      border-radius: 5px;
-      font-family: monospace;
-      margin: var(--space-sm) 0;
-      border-left: 3px solid var(--accent1);
-      color: var(--dark);
-      overflow-x: auto; /* Allow horizontal scrolling for long equations */
-      white-space: nowrap;
-    }
-  
-    .ion-table {
-  width: 100%;
-  max-width: 100%;
-  border-collapse: collapse;
-  margin: var(--space-md) auto; /* Changed to auto for horizontal centering */
-  font-size: clamp(0.8rem, 2.5vw, 0.95rem);
-  display: table; /* Changed from block to table for proper centering */
-  overflow-x: auto;
-}
-
-.ion-table th {
-  background-color: var(--secondary);
-  color: white;
-  text-align: center; /* Changed from left to center */
-  padding: var(--space-sm) var(--space-md);
-}
-
-.ion-table td {
-  padding: var(--space-xs) var(--space-md);
-  border-bottom: 1px solid var(--light);
-  text-align: center; /* Center-align cell content */
-}
-
-.ion-table tr:nth-child(even) {
-  background-color: rgba(230, 232, 232, 0.5);
-}
-
-/* For mobile responsiveness */
-@media (max-width: 768px) {
-  .ion-table {
-    display: block; /* Revert to block for mobile scrolling */
-    width: 100%;
-  }
-}
-  
-    .btn-group {
-      display: flex;
-      gap: var(--space-sm);
-      margin: var(--space-lg) 0 var(--space-md) 0;
-      flex-wrap: wrap;
-    }
-  
-    .game-btn {
-      display: inline-block;
-      padding: var(--space-sm) var(--space-md);
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s;
-      text-align: center;
-      margin: var(--space-xs) 0;
-      font-size: clamp(0.9rem, 2.5vw, 1rem);
-      flex: 1 1 auto;
-      min-width: 150px;
-      box-sizing: border-box;
-    }
-  
-    .btn-primary {
-      background-color: var(--primary);
-      color: white;
-    }
-  
-    .btn-secondary {
-      background-color: var(--accent2);
-      color: var(--dark);
-    }
-  
-    .game-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-  
-    .teacher-resources {
-      background-color: rgba(60, 128, 139, 0.1);
-      padding: var(--space-lg) var(--content-padding);
-      border-radius: 8px;
-      margin: var(--space-lg) 0 0 0;
-      border-left: 4px solid var(--secondary);
-      box-sizing: border-box;
-    }
-  
-    .resource-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: var(--space-sm);
-      margin: var(--space-md) 0;
-    }
-  
-    .btn-teacher {
-      background-color: var(--accent3);
-      color: white;
-    }
-  
-    em {
-      color: var(--accent4);
-      font-style: italic;
-    }
-  
-    /* Mobile-first responsive adjustments */
-    @media (max-width: 768px) {
-      :root {
-        --content-padding: var(--space-sm);
-      }
-      
-      .game-section {
-        padding: 0 var(--space-xs);
-        margin: var(--space-xs) auto var(--space-sm) auto;
-      }
-      
-      .concept-group {
-        padding: var(--space-sm) var(--space-xs);
-        margin-bottom: var(--space-sm);
-      }
-      
-      .chemistry-card {
-        padding: var(--space-sm) var(--space-xs);
-        margin: var(--space-md) 0;
-      }
-      
-      .teacher-resources {
-        padding: var(--space-md) var(--space-xs);
-      }
-      
-      .btn-group {
-        flex-direction: column;
-        gap: var(--space-xs);
-        margin: var(--space-md) 0;
-      }
-      
-      .game-btn {
-        width: 100%;
-      }
-      
-      .ion-table {
-        display: block;
-        width: calc(100% + var(--space-xs) * 2);
-        margin-left: calc(-1 * var(--space-xs));
-        margin-right: calc(-1 * var(--space-xs));
-      }
-      
-      .ion-table th,
-      .ion-table td {
-        padding: var(--space-xs) var(--space-sm);
-      }
-    }
-  
-    /* Large screen adjustments */
-    @media (min-width: 1200px) {
-      .game-section {
-        max-width: 1000px;
-      }
-    }
-  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -302,18 +43,20 @@
     </div>
   </section>
   
-  <section class="game-section">
-    <h2>Welcome to Chemistry Snake!</h2>
-    <div class="concept-group">
-      <h3>What You'll Learn:</h3>
-      <ol>
-        <li>How cations (+) and anions (-) combine to form stable compounds</li>
-        <li>Common chemical formulas and systematic naming conventions</li>
-        <li>Charge balancing in ionic bonding</li>
-        <li>Polyatomic ions and transition metal compounds</li>
-      </ol>
-    </div>
-   
+  <div class="main-content">
+    <section class="game-section">
+      <h2>Welcome to Chemistry Snake!</h2>
+      <div class="concept-group">
+        <h3>What You'll Learn:</h3>
+        <ol>
+          <li>How cations (+) and anions (-) combine to form stable compounds</li>
+          <li>Common chemical formulas and systematic naming conventions</li>
+          <li>Charge balancing in ionic bonding</li>
+          <li>Polyatomic ions and transition metal compounds</li>
+        </ol>
+      </div>
+    </section>
+  
     <div class="concept-group">
       <h3>How to Play:</h3>
       <ol>
@@ -335,192 +78,191 @@
         </li>
       </ol>
     </div>
-  </section>
-  
-<!-- Game Connection Section -->
-<section class="game-section">
-    <h2>Game Application</h2>
-    <div class="concept-group">
-      <h3>Compound Challenges</h3>
-      <ul>
-        <li><strong>Simple Salts</strong>: NaCl (1 Na⁺ + 1 Cl⁻)</li>
-        <li><strong>Charge Balancing</strong>: CaCl₂ (1 Ca²⁺ + 2 Cl⁻)</li>
-        <li><strong>Polyatomic Ions</strong>: Al₂(SO₄)₃ (2 Al³⁺ + 3 SO₄²⁻)</li>
-      </ul>
-    </div>
     
-    <div class="concept-group">
-      <h3>Game Consequences</h3>
-      <ul>
-        <li>Correct ions grow your snake and increase your score</li>
-        <li>Incorrect ions shrink your snake and deduct points</li>
-        <li>Collecting excess required ions reduces your score</li>
-      </ul>
-    </div>
-  </section>
-  
-  <!-- Call to Action -->
-  <section class="game-section">
-    <h2>Ready to Play?</h2>
-    <div class="btn-group">
-      <a href="#" class="game-btn btn-secondary">Quick Quiz (5 questions)</a>
-      <a href="snake.html" class="game-btn btn-primary">Start Game Now</a>
-    </div>
-  </section>
-
-  <!-- Chemistry Basics Section -->
-  <section class="game-section">
-    <h2>Chemistry Fundamentals</h2>
-     <div class="concept-group">
-        <h3>1. Understanding Ions</h3>
-        <p><strong>Ions</strong> are electrically charged atoms or molecules formed through electron transfer.</p>
-        <ul>
-          <li><strong>Formation Principles</strong>:
-            <ul>
-              <li>Atoms seek stable electron configurations (noble gas configuration)</li>
-              <li>Metals typically <strong>lose electrons</strong> → form <strong>cations (+)</strong></li>
-              <li>Nonmetals typically <strong>gain electrons</strong> → form <strong>anions (-)</strong></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-  
-      <div class="concept-group">
-        <h3>2. Cations (Positive Ions)</h3>
-        <ul>
-          <li><strong>Definition</strong>: Positively charged ions that donate electrons</li>
-          <li><strong>Common Examples</strong>:
-            <ul>
-              <li>Na⁺ (Sodium ion)</li>
-              <li>Ca²⁺ (Calcium ion)</li>
-              <li>Al³⁺ (Aluminum ion)</li>
-            </ul>
-          </li>
-          <li><strong>Formation Example</strong>:
-            <div class="chem-equation">Sodium (Na) → loses 1 electron → Na⁺</div>
-          </li>
-        </ul>
-      </div>
-  
-      <div class="concept-group">
-        <h3>3. Anions (Negative Ions)</h3>
-        <ul>
-          <li><strong>Definition</strong>: Negatively charged ions that accept electrons</li>
-          <li><strong>Common Examples</strong>:
-            <ul>
-              <li>Cl⁻ (Chloride ion)</li>
-              <li>O²⁻ (Oxide ion)</li>
-              <li>SO₄²⁻ (Sulfate ion)</li>
-            </ul>
-          </li>
-          <li><strong>Formation Example</strong>:
-            <div class="chem-equation">Chlorine (Cl) → gains 1 electron → Cl⁻</div>
-          </li>
-        </ul>
-      </div>
-  
-      <div class="concept-group">
-        <h3>4. Charge Balancing Principles</h3>
-        <p><strong>Fundamental Rule</strong>: The total positive charge must equal the total negative charge in a compound.</p>
-        <p><strong>Examples</strong>:</p>
-        <ul>
-          <li>NaCl: 1(Na⁺) + 1(Cl⁻) = Neutral compound</li>
-          <li>CaCl₂: 1(Ca²⁺) + 2(Cl⁻) = Neutral compound</li>
-        </ul>
+      <!-- Game Connection Section -->
+      <section class="game-section">
+        <h2>Game Application</h2>
+        <div class="concept-group">
+          <h3>Compound Challenges</h3>
+          <ul>
+            <li><strong>Simple Salts</strong>: NaCl (1 Na⁺ + 1 Cl⁻)</li>
+            <li><strong>Charge Balancing</strong>: CaCl₂ (1 Ca²⁺ + 2 Cl⁻)</li>
+            <li><strong>Polyatomic Ions</strong>: Al₂(SO₄)₃ (2 Al³⁺ + 3 SO₄²⁻)</li>
+          </ul>
+        </div>
         
-        <h4>Common Ion Charges</h4>
-        <table class="ion-table">
-          <thead>
-            <tr>
-              <th>Ion Type</th>
-              <th>Examples</th>
-              <th>Typical Charge</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Alkali Metals</td>
-              <td>Na⁺, K⁺</td>
-              <td>+1</td>
-            </tr>
-            <tr>
-              <td>Alkaline Earth Metals</td>
-              <td>Ca²⁺, Mg²⁺</td>
-              <td>+2</td>
-            </tr>
-            <tr>
-              <td>Halogens</td>
-              <td>Cl⁻, Br⁻</td>
-              <td>-1</td>
-            </tr>
-            <tr>
-              <td>Polyatomic Ions</td>
-              <td>NO₃⁻, SO₄²⁻</td>
-              <td>Varies</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  
-      <div class="concept-group">
-        <h3>5. Ionic Compound Formation</h3>
-        <ul>
-          <li><strong>Bonding Process</strong>: Electrostatic attraction between oppositely charged ions forms crystal lattices</li>
-          <li><strong>Example Formation</strong>:
-            <div class="chem-equation">Na⁺ + Cl⁻ → Sodium Chloride (NaCl)</div>
-          </li>
-          <li><strong>Nomenclature Rules</strong>:
-            <ol>
-              <li>Cation name first (element name unchanged)</li>
-              <li>Anion name second:
-                <ul>
-                  <li>Single element anions: "-ide" suffix (e.g., Chloride)</li>
-                  <li>Polyatomic ions: retain their common names (e.g., Sulfate)</li>
-                </ul>
-              </li>
-            </ol>
-          </li>
-        </ul>
-      </div>
-    </section>
+        <div class="concept-group">
+          <h3>Game Consequences</h3>
+          <ul>
+            <li>Correct ions grow your snake and increase your score</li>
+            <li>Incorrect ions shrink your snake and deduct points</li>
+            <li>Collecting excess required ions reduces your score</li>
+          </ul>
+        </div>
+      </section>
+      
+      <!-- Call to Action -->
+      <section class="game-section">
+        <h2>Ready to Play?</h2>
+        <div class="btn-group">
+          <a href="#" class="game-btn btn-secondary">Quick Quiz (5 questions)</a>
+          <a href="snake.html" class="game-btn btn-primary">Start Game Now</a>
+        </div>
+      </section>
     
-  <!-- Teacher Resources -->
-  <section class="teacher-resources">
-    <h2>Educator Resources</h2>
-       
-    <div class="resource-grid">
-      <a href="#" class="game-btn btn-teacher">Lesson Plan</a>
-      <a href="#" class="game-btn btn-teacher">Worksheet</a>
-      <a href="#" class="game-btn btn-teacher">PPT Slides</a>
-      <a href="#" class="game-btn btn-teacher">Syllabus Guide</a>
-    </div>
+      <!-- Chemistry Basics Section -->
+      <section class="game-section">
+        <h2>Chemistry Fundamentals</h2>
+        <div class="concept-group">
+          <h3>1. Understanding Ions</h3>
+          <p><strong>Ions</strong> are electrically charged atoms or molecules formed through electron transfer.</p>
+          <ul>
+            <li><strong>Formation Principles</strong>:
+              <ul>
+                <li>Atoms seek stable electron configurations (noble gas configuration)</li>
+                <li>Metals typically <strong>lose electrons</strong> → form <strong>cations (+)</strong></li>
+                <li>Nonmetals typically <strong>gain electrons</strong> → form <strong>anions (-)</strong></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
     
-    <div class="concept-group">
-      <h3>Teaching Strategies</h3>
-      <ul>
-        <li><strong>Differentiation</strong>:
+        <div class="concept-group">
+          <h3>2. Cations (Positive Ions)</h3>
           <ul>
-            <li>Struggling students: Provide ion reference charts</li>
-            <li>Advanced students: Predict formulas before gameplay</li>
+            <li><strong>Definition</strong>: Positively charged ions that donate electrons</li>
+            <li><strong>Common Examples</strong>:
+              <ul>
+                <li>Na⁺ (Sodium ion)</li>
+                <li>Ca²⁺ (Calcium ion)</li>
+                <li>Al³⁺ (Aluminum ion)</li>
+              </ul>
+            </li>
+            <li><strong>Formation Example</strong>:
+              <div class="chem-equation">Sodium (Na) → loses 1 electron → Na⁺</div>
+            </li>
           </ul>
-        </li>
-        <li><strong>Classroom Setup</strong>:
+        </div>
+    
+        <div class="concept-group">
+          <h3>3. Anions (Negative Ions)</h3>
           <ul>
-            <li>Pair students for collaborative learning</li>
-            <li>Set level progression goals</li>
-            <li>Use gameplay data to identify misconceptions</li>
+            <li><strong>Definition</strong>: Negatively charged ions that accept electrons</li>
+            <li><strong>Common Examples</strong>:
+              <ul>
+                <li>Cl⁻ (Chloride ion)</li>
+                <li>O²⁻ (Oxide ion)</li>
+                <li>SO₄²⁻ (Sulfate ion)</li>
+              </ul>
+            </li>
+            <li><strong>Formation Example</strong>:
+              <div class="chem-equation">Chlorine (Cl) → gains 1 electron → Cl⁻</div>
+            </li>
           </ul>
-        </li>
-        <li><strong>Technical Notes</strong>:
+        </div>
+    
+        <div class="concept-group">
+          <h3>4. Charge Balancing Principles</h3>
+          <p><strong>Fundamental Rule</strong>: The total positive charge must equal the total negative charge in a compound.</p>
+          <p><strong>Examples</strong>:</p>
           <ul>
-            <li>Works offline after initial load</li>
-            <li>Chromebook compatible</li>
-            <li>Accessible design</li>
+            <li>NaCl: 1(Na⁺) + 1(Cl⁻) = Neutral compound</li>
+            <li>CaCl₂: 1(Ca²⁺) + 2(Cl⁻) = Neutral compound</li>
           </ul>
-        </li>
-      </ul>
+          
+          <h4>Common Ion Charges</h4>
+          <table class="ion-table">
+            <thead>
+              <tr>
+                <th>Ion Type</th>
+                <th>Examples</th>
+                <th>Typical Charge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Alkali Metals</td>
+                <td>Na⁺, K⁺</td>
+                <td>+1</td>
+              </tr>
+              <tr>
+                <td>Alkaline Earth Metals</td>
+                <td>Ca²⁺, Mg²⁺</td>
+                <td>+2</td>
+              </tr>
+              <tr>
+                <td>Halogens</td>
+                <td>Cl⁻, Br⁻</td>
+                <td>-1</td>
+              </tr>
+              <tr>
+                <td>Polyatomic Ions</td>
+                <td>NO₃⁻, SO₄²⁻</td>
+                <td>Varies</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    
+        <div class="concept-group">
+          <h3>5. Ionic Compound Formation</h3>
+          <ul>
+            <li><strong>Bonding Process</strong>: Electrostatic attraction between oppositely charged ions forms crystal lattices</li>
+            <li><strong>Example Formation</strong>:
+              <div class="chem-equation">Na⁺ + Cl⁻ → Sodium Chloride (NaCl)</div>
+            </li>
+            <li><strong>Nomenclature Rules</strong>:
+              <ol>
+                <li>Cation name first (element name unchanged)</li>
+                <li>Anion name second:
+                  <ul>
+                    <li>Single element anions: "-ide" suffix (e.g., Chloride)</li>
+                    <li>Polyatomic ions: retain their common names (e.g., Sulfate)</li>
+                  </ul>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </section>
+        
+      <!-- Teacher Resources -->
+      <section class="teacher-resources">
+        <h2>Educator Resources</h2>
+           
+        <div class="resource-grid">
+          <a href="#" class="game-btn btn-teacher">Lesson Plan</a>
+          <a href="#" class="game-btn btn-teacher">Worksheet</a>
+          <a href="#" class="game-btn btn-teacher">PPT Slides</a>
+        </div>
+        
+        <div class="concept-group">
+          <h3>Teaching Strategies</h3>
+          <ul>
+            <li><strong>Differentiation</strong>:
+              <ul>
+                <li>Struggling students: Provide ion reference charts</li>
+                <li>Advanced students: Predict formulas before gameplay</li>
+              </ul>
+            </li>
+            <li><strong>Classroom Setup</strong>:
+              <ul>
+                <li>Pair students for collaborative learning</li>
+                <li>Set level progression goals</li>
+                <li>Use gameplay data to identify misconceptions</li>
+              </ul>
+            </li>
+            <li><strong>Technical Notes</strong>:
+              <ul>
+                <li>Works offline after initial load</li>
+                <li>Chromebook compatible</li>
+                <li>Accessible design</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
     </div>
-  </section>
 
   <!-- Footer -->
   <footer class="footer">
