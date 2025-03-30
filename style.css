@@ -311,12 +311,14 @@ body {
     transform: scale(1.1);
 }
 
-.alkali-metal          { background: #CC80FF; }
-.alkaline-earth-metal  { background: #C2FF00; }
-.metalloid             { background: #FFB5B5; }
-.nonmetal              { background: #909090; }
-.halogen               { background: #90E050; }
-.noble-gas             { background: #B3E3F5; }
+.lithium            { background: #CC80FF; }
+.berrylium          { background: #C2FF00; }
+.boron              { background: #FFB5B5; }
+.carbon             { background: #909090; }
+.nitrogen           { background: #3050F8; }
+.oxygen             { background: #FF0D0D; }
+.fluorine           { background: #90E050; }
+.neon               { background: #B3E3F5; }
 
 /* Fun Games Section */
 .games {
