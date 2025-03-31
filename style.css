@@ -207,33 +207,112 @@ body {
 }
 
 /* ================================================
-   HAMBURGER MENU (Mobile Navigation)
+   HAMBURGER MENU COMPONENT
    ================================================ */
-.hamburger {
-    display: none;
+
+/* ======================
+   Base Hamburger Styles 
+   ====================== */
+   .hamburger {
+    display: none; /* Hidden on desktop by default */
+    width: 100%;
     cursor: pointer;
-    transition-property: opacity, filter;
-    transition-duration: 0.15s;
-    transition-timing-function: linear;
+    border: 0;
+    margin: 0;
+    padding: 15px;
+    z-index: 1001;
+    
+    /* Transition properties */
+    transition: opacity 0.15s linear, filter 0.15s linear;
+    
+    /* Typography inheritance */
     font: inherit;
     color: inherit;
     text-transform: none;
-    background-color: transparent;
-    border: 0;
-    margin: 0;
     overflow: visible;
-    padding: 15px;
-    z-index: 1001;
+    
+    /* Positioning for top left */
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: auto;
+}
+
+/* ======================
+   Hamburger Box & Bars 
+   ====================== */
+.hamburger-box {
+    width: 30px;
+    height: 24px;
+    display: inline-block;
+    position: relative;
+}
+
+.hamburger-inner {
+    display: block;
+    top: 50%;
+    margin-top: -2px;
+}
+
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+    width: 30px;
+    height: 3px;
+    background-color: var(--primary);
+    border-radius: 4px;
+    position: absolute;
+    
+    /* Transition properties */
+    transition: transform 0.15s ease;
+}
+
+.hamburger-inner::before,
+.hamburger-inner::after {
+    content: "";
+    display: block;
+}
+
+.hamburger-inner::before {
+    top: -10px;
+}
+
+.hamburger-inner::after {
+    bottom: -10px;
+}
+
+/* ======================
+   Active/Open State 
+   ====================== */
+.hamburger.is-active .hamburger-inner {
+    transform: rotate(45deg);
+}
+
+.hamburger.is-active .hamburger-inner::before {
+    transform: translate3d(0, 10px, 0) rotate(-45deg);
+    opacity: 0;
+}
+
+.hamburger.is-active .hamburger-inner::after {
+    transform: translate3d(0, -10px, 0) rotate(90deg);
 }
 
 /* ================================================
-   RESPONSIVE DESIGN
+   MOBILE NAVIGATION STYLES
    ================================================ */
 @media (max-width: 768px) {
+    /* Hamburger Visibility */
     .hamburger {
-        display: inline-block;
+        display: block;
     }
     
+    /* Adjust header for hamburger */
+    .nav-container {
+        position: relative;
+        padding-left: 60px; /* Make room for hamburger */
+    }
+    
+    /* Mobile Menu Container */
     .nav-links {
         position: fixed;
         top: 70px;
@@ -241,18 +320,29 @@ body {
         width: 100%;
         height: calc(100vh - 70px);
         background-color: var(--light);
+        
+        /* Flex layout */
+        display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
         padding-top: 20px;
+        
+        /* Transition & Scrolling */
         transition: left 0.3s ease;
         overflow-y: auto;
+        
+        /* Ensure visibility is controlled independently */
+        visibility: hidden;
     }
     
-    .nav-links.active {
+    /* Active State - Only triggered by JS click event */
+    .nav-links.is-open {
         left: 0;
+        visibility: visible;
     }
     
+    /* Menu Items */
     .nav-links li {
         margin: 15px 0;
         height: auto;
@@ -263,6 +353,7 @@ body {
         font-size: 1.2rem;
     }
     
+    /* Remove desktop hover effects */
     .nav-links a::after {
         display: none;
     }
@@ -631,7 +722,17 @@ body {
 /* ======================
    NAVIGATION
    ====================== */
-   @media (max-width: 768px) {
+   @media (max-width: 992px) {
+    .nav-container {
+        padding: 15px 30px;
+    }
+    
+    .nav-links li {
+        margin: 0 12px;
+    }
+}
+
+@media (max-width: 768px) {
     .nav-container {
         flex-direction: column;
         padding: 10px 20px;
@@ -668,12 +769,23 @@ body {
 }
 
 @media (max-width: 992px) {
+    .hero {
+        padding: 120px 40px 80px;
+    }
+    
     .hero h1 {
         font-size: 2.5rem;
     }
     
     .hero p {
         font-size: 1.1rem;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-buttons .btn {
+        margin: 0 10px;
     }
 }
 
@@ -723,7 +835,26 @@ body {
    ====================== */
 @media (max-width: 1200px) {
     .course-grid {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .course-grid {
+        grid-template-columns: repeat(2, 1fr); /* Force 2 columns for tablets */
+        gap: 25px;
+    }
+    
+    .course-card {
+        padding: 25px;
+        width: 100%; /* Ensure cards take full width of their grid area */
+        box-sizing: border-box;
+    }
+    
+    .course-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
     }
 }
 
@@ -753,6 +884,29 @@ body {
 /* ======================
    PERIODIC TABLE
    ====================== */
+@media (max-width: 992px) {
+    .table-preview {
+        grid-template-columns: repeat(10, 1fr); /* Reduced from 12 columns */
+        gap: 8px;
+        overflow-x: auto; /* Allow horizontal scrolling if needed */
+        padding-bottom: 15px; /* Space for scrollbar */
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .element {
+        padding: 12px 6px;
+        min-width: unset; /* Remove any fixed widths */
+    }
+
+    /* Container adjustment */
+    .section-container {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden; /* Prevent horizontal scrolling of the main container */
+    }
+}
+
 @media (max-width: 768px) {
     .table-preview {
         grid-template-columns: repeat(8, 1fr);
@@ -786,6 +940,23 @@ body {
 /* ======================
    GAME & CONTENT SECTIONS
    ====================== */
+@media (max-width: 992px) {
+    .game-content,
+    .contact-content {
+        gap: 40px;
+    }
+    
+    .game-text,
+    .contact-form {
+        flex: 1 1 50%;
+    }
+    
+    .game-visual,
+    .contact-info {
+        flex: 1 1 40%;
+    }
+}
+
 @media (max-width: 768px) {
     .game-content,
     .contact-content {
@@ -800,15 +971,15 @@ body {
     }
 }
 
-@media (max-width: 992px) {
-    .contact-content {
-        gap: 30px;
-    }
-}
-
 /* ======================
    FOOTER
    ====================== */
+@media (max-width: 992px) {
+    .footer-links {
+        gap: 20px;
+    }
+}
+
 @media (max-width: 768px) {
     .footer-links {
         grid-template-columns: repeat(2, 1fr);
@@ -833,7 +1004,21 @@ body {
     }
 }
 
+@media (max-width: 992px) {
+    .section-container {
+        padding: 0 30px;
+    }
+    
+    .full-screen {
+        padding: 80px 30px;
+    }
+}
+
 @media (max-width: 768px) {
+    .section-container {
+        padding: 0 20px;
+    }
+    
     .full-screen {
         padding: 60px 20px;
     }
@@ -845,6 +1030,12 @@ body {
 @media (max-width: 992px) {
     .section-title {
         font-size: 2.2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .section-title::after {
+        width: 80px;
+        margin-top: 15px;
     }
 }
 
@@ -874,6 +1065,12 @@ body {
 /* ======================
    BUTTONS
    ====================== */
+@media (max-width: 992px) {
+    .btn {
+        padding: 12px 24px;
+    }
+}
+
 @media (max-width: 400px) {
     .btn {
         padding: 10px 20px;
@@ -884,6 +1081,15 @@ body {
 /* ======================
    FORM ELEMENTS
    ====================== */
+@media (max-width: 992px) {
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+        padding: 14px;
+        margin-bottom: 15px;
+    }
+}
+
 @media (max-width: 576px) {
     .contact-form input,
     .contact-form select,
@@ -911,8 +1117,65 @@ body {
 }
 
 /* ================================================
-Touch device optimizations
-================================================ */
+   TABLET-SPECIFIC OPTIMIZATIONS
+   ================================================ */
+   @media (min-width: 769px) and (max-width: 992px) {
+    /* Tablet-specific container fixes */
+    .section-container {
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+    
+    /* Tablet-specific navigation tweaks */
+    .nav-logo {
+        max-width: 160px;
+    }
+    
+    /* Tablet-specific periodic table adjustments */
+    .table-preview-container {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    
+    /* Tablet-specific forms */
+    .contact-form {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+    
+    /* Game and content sections fix */
+    .game-content,
+    .contact-content {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Hero section adjustments */
+    .hero {
+        box-sizing: border-box;
+        width: 100%;
+    }
+    
+    /* Global box-sizing for better layout control */
+    * {
+        box-sizing: border-box;
+    }
+}
+
+/* Additional tablet size break for larger tablets */
+@media (min-width: 993px) and (max-width: 1024px) {
+    .table-preview {
+        grid-template-columns: repeat(11, 1fr);
+    }
+    
+    .course-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ================================================
+   Touch device optimizations
+   ================================================ */
 @media (hover: none) and (pointer: coarse) {
     /* Touch device specific styles */
     .btn {
@@ -926,11 +1189,26 @@ Touch device optimizations
     .element:hover {
         transform: none; /* Disable hover effects */
     }
+    
+    /* Additional tablet touch optimizations */
+    @media (min-width: 769px) and (max-width: 992px) {
+        .element {
+            padding: 14px 6px; /* Larger touch targets for periodic table */
+        }
+        
+        .course-card {
+            transition: none; /* Remove hover transitions */
+        }
+        
+        .nav-links a {
+            padding: 10px 5px; /* Even larger touch targets for tablets */
+        }
+    }
 }
 
 /* ================================================
-Print styles
-================================================ */
+   Print styles
+   ================================================ */
 @media print {
     .navbar,
     .footer {
@@ -953,7 +1231,6 @@ Print styles
     }
 }
 
-
 /* ================================================
    HAMBURGER MENU COMPONENT
    ================================================ */
@@ -963,11 +1240,11 @@ Print styles
    ====================== */
    .hamburger {
     display: none; /* Hidden on desktop by default */
-    width: 100%;
     cursor: pointer;
     border: 0;
     margin: 0;
     padding: 15px;
+    background-color: transparent;
     z-index: 1001;
     
     /* Transition properties */
@@ -987,7 +1264,7 @@ Print styles
     width: 30px;
     height: 24px;
     display: inline-block;
-    
+    position: relative;
 }
 
 .hamburger-inner {
@@ -1026,17 +1303,20 @@ Print styles
 /* ======================
    Active/Open State 
    ====================== */
-.hamburger.active .hamburger-inner {
+.hamburger.is-active .hamburger-inner {
     transform: rotate(45deg);
 }
 
-.hamburger.active .hamburger-inner::before {
-    transform: rotate(-45deg) translate(-7px, -7px);
+.hamburger.is-active .hamburger-inner::before {
+    top: 0;
     opacity: 0;
+    transition: top 0.1s ease, opacity 0.1s 0.14s ease;
 }
 
-.hamburger.active .hamburger-inner::after {
-    transform: rotate(45deg) translate(-7px, 7px);
+.hamburger.is-active .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(-90deg);
+    transition: bottom 0.1s ease, transform 0.15s 0.14s ease;
 }
 
 /* ================================================
@@ -1045,13 +1325,13 @@ Print styles
 @media (max-width: 768px) {
     /* Hamburger Visibility */
     .hamburger {
-        display: flex;
+        display: inline-block;
     }
     
     /* Mobile Menu Container */
     .nav-links {
         position: fixed;
-        top: 70px;
+        top: 60px;
         left: -100%;
         width: 100%;
         height: calc(100vh - 70px);
@@ -1067,11 +1347,15 @@ Print styles
         /* Transition & Scrolling */
         transition: left 0.3s ease;
         overflow-y: auto;
+        
+        /* Ensure visibility is controlled independently */
+        visibility: hidden;
     }
     
-    /* Active State */
-    .nav-links.active {
+    /* Active State - Only triggered by JS click event */
+    .nav-links.is-open {
         left: 0;
+        visibility: visible;
     }
     
     /* Menu Items */
@@ -1257,8 +1541,8 @@ Print styles
     font-style: italic;
   }
   
-  /* Mobile-first responsive adjustments */
-  @media (max-width: 768px) {
+/* Mobile-first responsive adjustments */
+@media (max-width: 768px) {
     .main-content {
       padding: 0 var(--space-xs);
     }
@@ -1297,6 +1581,55 @@ Print styles
     .main-content .ion-table th,
     .main-content .ion-table td {
       padding: var(--space-xs) var(--space-sm);
+    }
+  }
+  
+  /* Tablet-specific adjustments */
+  @media (min-width: 769px) and (max-width: 1199px) {
+    .main-content {
+      padding: 0 var(--space-sm);
+    }
+    
+    .main-content .game-section {
+      padding: 0 var(--space-sm);
+      margin: var(--space-sm) auto var(--space-md) auto;
+      max-width: 900px;
+    }
+    
+    .main-content .concept-group {
+      padding: var(--space-md) var(--space-sm);
+      margin-bottom: var(--space-md);
+      border-radius: var(--border-radius-md);
+    }
+    
+    .main-content .teacher-resources {
+      padding: var(--space-lg) var(--space-sm);
+    }
+    
+    .main-content .btn-group {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin: var(--space-md) 0;
+    }
+    
+    .main-content .game-btn {
+      width: auto;
+      min-width: 180px;
+    }
+    
+    .main-content .ion-table {
+      display: table;
+      width: 100%;
+      margin: var(--space-md) 0;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    
+    .main-content .ion-table th,
+    .main-content .ion-table td {
+      padding: var(--space-xs) var(--space-md);
     }
   }
   

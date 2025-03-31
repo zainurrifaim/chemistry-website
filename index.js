@@ -1,25 +1,43 @@
-    document.addEventListener('DOMContentLoaded', function() {
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
+document.addEventListener('DOMContentLoaded', function() {
+    // Get references to the hamburger button and navigation menu
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    // Function to toggle the menu state
+    function toggleMenu() {
+        // Toggle classes for hamburger animation
+        hamburger.classList.toggle('is-active');
         
-        hamburger.addEventListener('click', function() {
-            this.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            
-            // Toggle body overflow when menu is open
-            if (navLinks.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        });
+        // Toggle class for navigation visibility
+        navLinks.classList.toggle('is-open');
         
-        // Close menu when a link is clicked
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
+        // Manage aria attributes for accessibility
+        const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', !isExpanded);
+    }
+    
+    // Add click event only to the hamburger button
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        toggleMenu();
     });
+    
+    // Close menu when clicking elsewhere (optional)
+    document.addEventListener('click', function(e) {
+        // Only if menu is open and click is outside the nav and hamburger
+        if (
+            navLinks.classList.contains('is-open') && 
+            !navLinks.contains(e.target) && 
+            !hamburger.contains(e.target)
+        ) {
+            toggleMenu();
+        }
+    });
+    
+    // Add escape key support for accessibility
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navLinks.classList.contains('is-open')) {
+            toggleMenu();
+        }
+    });
+});

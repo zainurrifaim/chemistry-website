@@ -403,6 +403,45 @@ Responsive Design
   }
 }
 
+/* Horizontal phone layout */
+@media (max-width: 768px) and (orientation: landscape) {
+  .content {
+    flex-direction: row;
+  }
+  
+  .game-board {
+    aspect-ratio: 16/9; /* Wide aspect ratio for landscape */
+    height: 100vh;
+    max-height: calc(100vh - 80px); /* Adjust based on header height */
+    padding: 5px;
+  }
+  
+  .info-panel {
+    width: 40%;
+    max-height: none;
+    height: 100%;
+    border-top: none;
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .menu {
+    flex-direction: row;
+    padding: 8px 15px;
+  }
+  
+  .game-info {
+    width: auto;
+  }
+  
+  .game-controls {
+    width: auto;
+  }
+  
+  .header h1 {
+    font-size: 1.3rem;
+  }
+}
+
 
 #game {
   touch-action: none;
