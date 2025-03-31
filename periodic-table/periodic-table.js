@@ -2,140 +2,140 @@ document.addEventListener('DOMContentLoaded', () => {
     // Element positioning grid (keep your existing grid definition)
     const elementGrid = {
         // Period 1
-        1: {row: 1, col: 1},   // Hydrogen
-        2: {row: 1, col: 18},  // Helium
+        1: {row: 2, col: 2},   // Hydrogen (Group 1)
+        2: {row: 2, col: 19},  // Helium (Group 18)
         
         // Period 2
-        3: {row: 2, col: 1},   // Lithium
-        4: {row: 2, col: 2},   // Beryllium
-        5: {row: 2, col: 13},  // Boron
-        6: {row: 2, col: 14},  // Carbon
-        7: {row: 2, col: 15},  // Nitrogen
-        8: {row: 2, col: 16},  // Oxygen
-        9: {row: 2, col: 17},  // Fluorine
-        10: {row: 2, col: 18}, // Neon
+        3: {row: 3, col: 2},   // Lithium (Group 1)
+        4: {row: 3, col: 3},   // Beryllium (Group 2)
+        5: {row: 3, col: 14},  // Boron (Group 13)
+        6: {row: 3, col: 15},  // Carbon (Group 14)
+        7: {row: 3, col: 16},  // Nitrogen (Group 15)
+        8: {row: 3, col: 17},  // Oxygen (Group 16)
+        9: {row: 3, col: 18},  // Fluorine (Group 17)
+        10: {row: 3, col: 19}, // Neon (Group 18)
         
         // Period 3
-        11: {row: 3, col: 1},  // Sodium
-        12: {row: 3, col: 2},  // Magnesium
-        13: {row: 3, col: 13}, // Aluminum
-        14: {row: 3, col: 14}, // Silicon
-        15: {row: 3, col: 15}, // Phosphorus
-        16: {row: 3, col: 16}, // Sulfur
-        17: {row: 3, col: 17}, // Chlorine
-        18: {row: 3, col: 18}, // Argon
+        11: {row: 4, col: 2},  // Sodium (Group 1)
+        12: {row: 4, col: 3},  // Magnesium (Group 2)
+        13: {row: 4, col: 14}, // Aluminum (Group 13)
+        14: {row: 4, col: 15}, // Silicon (Group 14)
+        15: {row: 4, col: 16}, // Phosphorus (Group 15)
+        16: {row: 4, col: 17}, // Sulfur (Group 16)
+        17: {row: 4, col: 18}, // Chlorine (Group 17)
+        18: {row: 4, col: 19}, // Argon (Group 18)
         
         // Period 4
-        19: {row: 4, col: 1},  // Potassium
-        20: {row: 4, col: 2},  // Calcium
-        21: {row: 4, col: 3},  // Scandium
-        22: {row: 4, col: 4},  // Titanium
-        23: {row: 4, col: 5},  // Vanadium
-        24: {row: 4, col: 6},  // Chromium
-        25: {row: 4, col: 7},  // Manganese
-        26: {row: 4, col: 8},  // Iron
-        27: {row: 4, col: 9},  // Cobalt
-        28: {row: 4, col: 10}, // Nickel
-        29: {row: 4, col: 11}, // Copper
-        30: {row: 4, col: 12}, // Zinc
-        31: {row: 4, col: 13}, // Gallium
-        32: {row: 4, col: 14}, // Germanium
-        33: {row: 4, col: 15}, // Arsenic
-        34: {row: 4, col: 16}, // Selenium
-        35: {row: 4, col: 17}, // Bromine
-        36: {row: 4, col: 18}, // Krypton
+        19: {row: 5, col: 2},  // Potassium (Group 1)
+        20: {row: 5, col: 3},  // Calcium (Group 2)
+        21: {row: 5, col: 4},  // Scandium (Group 3)
+        22: {row: 5, col: 5},  // Titanium (Group 4)
+        23: {row: 5, col: 6},  // Vanadium (Group 5)
+        24: {row: 5, col: 7},  // Chromium (Group 6)
+        25: {row: 5, col: 8},  // Manganese (Group 7)
+        26: {row: 5, col: 9},  // Iron (Group 8)
+        27: {row: 5, col: 10}, // Cobalt (Group 9)
+        28: {row: 5, col: 11}, // Nickel (Group 10)
+        29: {row: 5, col: 12}, // Copper (Group 11)
+        30: {row: 5, col: 13}, // Zinc (Group 12)
+        31: {row: 5, col: 14}, // Gallium (Group 13)
+        32: {row: 5, col: 15}, // Germanium (Group 14)
+        33: {row: 5, col: 16}, // Arsenic (Group 15)
+        34: {row: 5, col: 17}, // Selenium (Group 16)
+        35: {row: 5, col: 18}, // Bromine (Group 17)
+        36: {row: 5, col: 19}, // Krypton (Group 18)
         
         // Period 5
-        37: {row: 5, col: 1},  // Rubidium
-        38: {row: 5, col: 2},  // Strontium
-        39: {row: 5, col: 3},  // Yttrium
-        40: {row: 5, col: 4},  // Zirconium
-        41: {row: 5, col: 5},  // Niobium
-        42: {row: 5, col: 6},  // Molybdenum
-        43: {row: 5, col: 7},  // Technetium
-        44: {row: 5, col: 8},  // Ruthenium
-        45: {row: 5, col: 9},  // Rhodium
-        46: {row: 5, col: 10}, // Palladium
-        47: {row: 5, col: 11}, // Silver
-        48: {row: 5, col: 12}, // Cadmium
-        49: {row: 5, col: 13}, // Indium
-        50: {row: 5, col: 14}, // Tin
-        51: {row: 5, col: 15}, // Antimony
-        52: {row: 5, col: 16}, // Tellurium
-        53: {row: 5, col: 17}, // Iodine
-        54: {row: 5, col: 18}, // Xenon
+        37: {row: 6, col: 2},  // Rubidium (Group 1)
+        38: {row: 6, col: 3},  // Strontium (Group 2)
+        39: {row: 6, col: 4},  // Yttrium (Group 3)
+        40: {row: 6, col: 5},  // Zirconium (Group 4)
+        41: {row: 6, col: 6},  // Niobium (Group 5)
+        42: {row: 6, col: 7},  // Molybdenum (Group 6)
+        43: {row: 6, col: 8},  // Technetium (Group 7)
+        44: {row: 6, col: 9},  // Ruthenium (Group 8)
+        45: {row: 6, col: 10}, // Rhodium (Group 9)
+        46: {row: 6, col: 11}, // Palladium (Group 10)
+        47: {row: 6, col: 12}, // Silver (Group 11)
+        48: {row: 6, col: 13}, // Cadmium (Group 12)
+        49: {row: 6, col: 14}, // Indium (Group 13)
+        50: {row: 6, col: 15}, // Tin (Group 14)
+        51: {row: 6, col: 16}, // Antimony (Group 15)
+        52: {row: 6, col: 17}, // Tellurium (Group 16)
+        53: {row: 6, col: 18}, // Iodine (Group 17)
+        54: {row: 6, col: 19}, // Xenon (Group 18)
         
         // Period 6
-        55: {row: 6, col: 1},  // Cesium
-        56: {row: 6, col: 2},  // Barium
+        55: {row: 7, col: 2},  // Cesium (Group 1)
+        56: {row: 7, col: 3},  // Barium (Group 2)
         // Lanthanides
-        57: {row: 9, col: 3},  // Lanthanum
-        58: {row: 9, col: 4},  // Cerium
-        59: {row: 9, col: 5},  // Praseodymium
-        60: {row: 9, col: 6},  // Neodymium
-        61: {row: 9, col: 7},  // Promethium
-        62: {row: 9, col: 8},  // Samarium
-        63: {row: 9, col: 9},  // Europium
-        64: {row: 9, col: 10}, // Gadolinium
-        65: {row: 9, col: 11}, // Terbium
-        66: {row: 9, col: 12}, // Dysprosium
-        67: {row: 9, col: 13}, // Holmium
-        68: {row: 9, col: 14}, // Erbium
-        69: {row: 9, col: 15}, // Thulium
-        70: {row: 9, col: 16}, // Ytterbium
-        71: {row: 9, col: 17}, // Lutetium
+        57: {row: 10, col: 4},  // Lanthanum (Group 3)
+        58: {row: 10, col: 5},  // Cerium
+        59: {row: 10, col: 6},  // Praseodymium
+        60: {row: 10, col: 7},  // Neodymium
+        61: {row: 10, col: 8},  // Promethium
+        62: {row: 10, col: 9},  // Samarium
+        63: {row: 10, col: 10}, // Europium
+        64: {row: 10, col: 11}, // Gadolinium
+        65: {row: 10, col: 12}, // Terbium
+        66: {row: 10, col: 13}, // Dysprosium
+        67: {row: 10, col: 14}, // Holmium
+        68: {row: 10, col: 15}, // Erbium
+        69: {row: 10, col: 16}, // Thulium
+        70: {row: 10, col: 17}, // Ytterbium
+        71: {row: 10, col: 18}, // Lutetium
         // Transition metals
-        72: {row: 6, col: 4},  // Hafnium
-        73: {row: 6, col: 5},  // Tantalum
-        74: {row: 6, col: 6},  // Tungsten
-        75: {row: 6, col: 7},  // Rhenium
-        76: {row: 6, col: 8},  // Osmium
-        77: {row: 6, col: 9},  // Iridium
-        78: {row: 6, col: 10}, // Platinum
-        79: {row: 6, col: 11}, // Gold
-        80: {row: 6, col: 12}, // Mercury
-        81: {row: 6, col: 13}, // Thallium
-        82: {row: 6, col: 14}, // Lead
-        83: {row: 6, col: 15}, // Bismuth
-        84: {row: 6, col: 16}, // Polonium
-        85: {row: 6, col: 17}, // Astatine
-        86: {row: 6, col: 18}, // Radon
+        72: {row: 7, col: 5},  // Hafnium (Group 4)
+        73: {row: 7, col: 6},  // Tantalum (Group 5)
+        74: {row: 7, col: 7},  // Tungsten (Group 6)
+        75: {row: 7, col: 8},  // Rhenium (Group 7)
+        76: {row: 7, col: 9},  // Osmium (Group 8)
+        77: {row: 7, col: 10}, // Iridium (Group 9)
+        78: {row: 7, col: 11}, // Platinum (Group 10)
+        79: {row: 7, col: 12}, // Gold (Group 11)
+        80: {row: 7, col: 13}, // Mercury (Group 12)
+        81: {row: 7, col: 14}, // Thallium (Group 13)
+        82: {row: 7, col: 15}, // Lead (Group 14)
+        83: {row: 7, col: 16}, // Bismuth (Group 15)
+        84: {row: 7, col: 17}, // Polonium (Group 16)
+        85: {row: 7, col: 18}, // Astatine (Group 17)
+        86: {row: 7, col: 19}, // Radon (Group 18)
         
         // Period 7
-        87: {row: 7, col: 1},  // Francium
-        88: {row: 7, col: 2},  // Radium
+        87: {row: 8, col: 2},  // Francium (Group 1)
+        88: {row: 8, col: 3},  // Radium (Group 2)
         // Actinides
-        89: {row: 10, col: 3},  // Actinium
-        90: {row: 10, col: 4},  // Thorium
-        91: {row: 10, col: 5},  // Protactinium
-        92: {row: 10, col: 6},  // Uranium
-        93: {row: 10, col: 7},  // Neptunium
-        94: {row: 10, col: 8},  // Plutonium
-        95: {row: 10, col: 9},  // Americium
-        96: {row: 10, col: 10}, // Curium
-        97: {row: 10, col: 11}, // Berkelium
-        98: {row: 10, col: 12}, // Californium
-        99: {row: 10, col: 13}, // Einsteinium
-        100: {row: 10, col: 14}, // Fermium
-        101: {row: 10, col: 15}, // Mendelevium
-        102: {row: 10, col: 16}, // Nobelium
-        103: {row: 10, col: 17}, // Lawrencium
+        89: {row: 11, col: 4},  // Actinium (Group 3)
+        90: {row: 11, col: 5},  // Thorium
+        91: {row: 11, col: 6},  // Protactinium
+        92: {row: 11, col: 7},  // Uranium
+        93: {row: 11, col: 8},  // Neptunium
+        94: {row: 11, col: 9},  // Plutonium
+        95: {row: 11, col: 10}, // Americium
+        96: {row: 11, col: 11}, // Curium
+        97: {row: 11, col: 12}, // Berkelium
+        98: {row: 11, col: 13}, // Californium
+        99: {row: 11, col: 14}, // Einsteinium
+        100: {row: 11, col: 15}, // Fermium
+        101: {row: 11, col: 16}, // Mendelevium
+        102: {row: 11, col: 17}, // Nobelium
+        103: {row: 11, col: 18}, // Lawrencium
         // Transition metals
-        104: {row: 7, col: 4}, // Rutherfordium
-        105: {row: 7, col: 5}, // Dubnium
-        106: {row: 7, col: 6}, // Seaborgium
-        107: {row: 7, col: 7}, // Bohrium
-        108: {row: 7, col: 8}, // Hassium
-        109: {row: 7, col: 9}, // Meitnerium
-        110: {row: 7, col: 10}, // Darmstadtium
-        111: {row: 7, col: 11}, // Roentgenium
-        112: {row: 7, col: 12}, // Copernicium
-        113: {row: 7, col: 13}, // Nihonium
-        114: {row: 7, col: 14}, // Flerovium
-        115: {row: 7, col: 15}, // Moscovium
-        116: {row: 7, col: 16}, // Livermorium
-        117: {row: 7, col: 17}, // Tennessine
-        118: {row: 7, col: 18}  // Oganesson
+        104: {row: 8, col: 5}, // Rutherfordium (Group 4)
+        105: {row: 8, col: 6}, // Dubnium (Group 5)
+        106: {row: 8, col: 7}, // Seaborgium (Group 6)
+        107: {row: 8, col: 8}, // Bohrium (Group 7)
+        108: {row: 8, col: 9}, // Hassium (Group 8)
+        109: {row: 8, col: 10}, // Meitnerium (Group 9)
+        110: {row: 8, col: 11}, // Darmstadtium (Group 10)
+        111: {row: 8, col: 12}, // Roentgenium (Group 11)
+        112: {row: 8, col: 13}, // Copernicium (Group 12)
+        113: {row: 8, col: 14}, // Nihonium (Group 13)
+        114: {row: 8, col: 15}, // Flerovium (Group 14)
+        115: {row: 8, col: 16}, // Moscovium (Group 15)
+        116: {row: 8, col: 17}, // Livermorium (Group 16)
+        117: {row: 8, col: 18}, // Tennessine (Group 17)
+        118: {row: 8, col: 19}  // Oganesson (Group 18)
     };
 
     let allElements = [];
@@ -160,33 +160,56 @@ document.addEventListener('DOMContentLoaded', () => {
             createPeriodicTable(allElements);
         });
 
-    function createPeriodicTable(elements) {
-        tableWrapper.innerHTML = '';
-        
-        const table = document.createElement('div');
-        table.className = 'periodic-table';
-        
-        elements.forEach(element => {
-            const tile = document.createElement('div');
-            tile.className = 'element-tile';
-            tile.style.gridRow = elementGrid[element.AtomicNumber]?.row || 'auto';
-            tile.style.gridColumn = elementGrid[element.AtomicNumber]?.col || 'auto';
-            tile.style.backgroundColor = `#${element.CPKHexColor || 'ddd'}`;
-            tile.dataset.group = element.GroupBlock;
+        function createPeriodicTable(elements) {
+            tableWrapper.innerHTML = '';
             
-            tile.innerHTML = `
-                <div class="atomic-number">${element.AtomicNumber}</div>
-                <div class="symbol">${element.Symbol}</div>
-                <div class="name">${element.Name}</div>
-                <div class="atomic-mass">${element.AtomicMass}</div>
-            `;
-
-            tile.addEventListener('click', () => showElementDetails(element));
-            table.appendChild(tile);
-        });
+            const table = document.createElement('div');
+            table.className = 'periodic-table';
+            
+            // Add Group Headers (1-18)
+            for(let group = 1; group <= 18; group++) {
+                const header = document.createElement('div');
+                header.className = 'group-header';
+                header.style.gridRow = '1';
+                header.style.gridColumn = group + 1; // Columns 2-19
+                header.textContent = group;
+                table.appendChild(header);
+            }
         
-        tableWrapper.appendChild(table);
-    }
+            // Add Period Numbers (1-7)
+            for(let period = 1; period <= 7; period++) {
+                const number = document.createElement('div');
+                number.className = 'period-number';
+                number.style.gridRow = period + 1; // Rows 2-8
+                number.style.gridColumn = '1';
+                number.textContent = period;
+                table.appendChild(number);
+            }
+        
+            // Add Elements
+            elements.forEach(element => {
+                const tile = document.createElement('div');
+                tile.className = 'element-tile';
+                // Use original grid positions WITHOUT +1 offset
+                tile.style.gridRow = elementGrid[element.AtomicNumber].row;
+                tile.style.gridColumn = elementGrid[element.AtomicNumber].col;
+                tile.style.backgroundColor = `#${element.CPKHexColor || 'ddd'}`;
+                tile.dataset.group = element.GroupBlock;
+                
+                tile.innerHTML = `
+                    <div class="atomic-number">${element.AtomicNumber}</div>
+                    <div class="symbol">${element.Symbol}</div>
+                    <div class="name">${element.Name}</div>
+                    <div class="atomic-mass">${element.AtomicMass}</div>
+                `;
+        
+                tile.addEventListener('click', () => showElementDetails(element));
+                table.appendChild(tile);
+            });
+            
+            tableWrapper.appendChild(table);
+        }
+
 
     function setupControls() {
         const groups = [...new Set(allElements.map(e => e.GroupBlock))];
@@ -315,3 +338,4 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 });
+
