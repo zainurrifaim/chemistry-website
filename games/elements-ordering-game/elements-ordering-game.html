@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChemEdu | Elements Ordering Game</title>
+    <link rel="icon" type="image/png" href="../../media/images/icon.png"> <!-- For modern browsers -->
+    <link rel="shortcut icon" href="../../media/images/favicon.ico"> <!-- For older browsers -->
+    <title>Number Ordering Game</title>
+    <link rel="stylesheet" href="elements-ordering-game.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1 style="text-align: center; color:#db243b">Elements Ordering Game</h1>       
+        <div class="game-info">
+            <div>Time: <span id="timer" class="time-text">300</span>s</div>
+            <div>Score: <span id="score">0</span></div>
+        </div>
+        
+        <div class="sorting-options">
+            <label for="sorting-select">Sort by:</label>
+            <select id="sorting-select"></select>
+        </div>
+
+        <p style="text-align: center" id="game-instruction">Drag and drop elements in order by Atomic Radius (smallest to largest)</p>
+
+        <div class="containers">
+            <div>
+                <div class="container-label">Initial Elements:</div>
+                <div id="initial-container" class="container initial-container"></div>
+            </div>
+            
+            <div>
+                <div class="container-label">Your Answer (Smallest to Largest):</div>
+                <div id="answer-container" class="container answer-container">
+                    <div class="slot" data-index="0"></div>
+                    <div class="slot" data-index="1"></div>
+                    <div class="slot" data-index="2"></div>
+                    <div class="slot" data-index="3"></div>
+                    <div class="slot" data-index="4"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="start-btn" class="start-btn">Start Game</button>
+            <button id="submit-btn" class="submit-btn">Submit Answer</button>
+            <a href="introduction-elements-ordering-game.html" class="back-btn">Back</a>
+        </div>
+        
+        <div id="result" class="result-container"></div>
+    </div>
+
+    <script src="elements-ordering-game.js"></script>
+</body>
+</html>
