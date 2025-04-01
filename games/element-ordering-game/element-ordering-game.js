@@ -32,7 +32,7 @@ const SORTING_OPTIONS = {
 // Game variables
 let elementsData = [];
 let selectedElements = [];
-let timeLeft = 300;
+let timeLeft = 100;
 let timerInterval;
 let gameState = 'ready';
 let currentSortingProperty = 'AtomicRadius';
@@ -182,7 +182,7 @@ async function startGame() {
     
     gameState = 'playing';
     selectedElements = generateRandomElements();
-    timeLeft = 300;
+    timeLeft = 100;
     timerElement.textContent = timeLeft;
     scoreElement.textContent = '0';
     resultElement.textContent = '';
@@ -245,6 +245,7 @@ Atomic Number: ${element.AtomicNumber}
 ${prop.display}: ${element[currentSortingProperty] || 'N/A'} ${prop.unit}`;
 }
 
+// Modified Game Logic Functions
 function checkAnswer() {
     const boxes = answerContainer.querySelectorAll('.box');
     if (boxes.length !== 5) return false;
@@ -253,41 +254,52 @@ function checkAnswer() {
         elementsData.find(e => e.AtomicNumber === box.dataset.atomicNumber)
     );
     
-    for (let i = 1; i < elements.length; i++) {
-        const current = parseFloat(elements[i][currentSortingProperty] || 0);
-        const prev = parseFloat(elements[i-1][currentSortingProperty] || 0);
-        if (current < prev) return false;
-    }
-    return true;
+    // Convert all values to numbers and handle nulls
+    const values = elements.map(e => {
+        const val = parseFloat(e[currentSortingProperty]);
+        return isNaN(val) ? -Infinity : val;
+    });
+
+    // Check ascending order based on sorting option
+    const isSorted = values.every((val, i) => 
+        i === 0 || val >= values[i - 1]
+    );
+    
+    return isSorted;
 }
 
 function updateSubmitButton() {
-    const canSubmit = answerContainer.querySelectorAll('.box').length === 5 && gameState === 'playing';
+    const canSubmit = checkAnswer() && gameState === 'playing';
     submitButton.classList.toggle('active', canSubmit);
     submitButton.disabled = !canSubmit;
 }
 
+// Modified End Game Function
 function endGame(reason) {
     clearInterval(timerInterval);
-    gameState = ['won', 'lost'].includes(reason) ? reason : 'ready';
-    
-    switch(reason) {
-        case 'timeout':
-            resultElement.textContent = "Time's up! Score: 0";
-            scoreElement.textContent = '0';
-            break;
-        case 'correct':
-            const score = Math.floor(timeLeft * 2.5);
-            resultElement.innerHTML = `<span class="score-text">Correct! Score: ${score}</span>`;
-            scoreElement.textContent = score;
-            break;
-        case 'incorrect':
-            resultElement.textContent = 'Wrong order! Try again.';
-            break;
-    }
-    
+    gameState = 'ready';
     submitButton.classList.remove('active');
+
+    if (reason === 'correct') {
+        const score = Math.floor(timeLeft);
+        resultElement.innerHTML = `<span class="score-text">Correct! Score: ${score}</span>`;
+        scoreElement.textContent = score;
+    } else {
+        resultElement.textContent = reason === 'timeout' 
+            ? "Time's up! Score: 0" 
+            : 'Wrong order! Try again.';
+        if (reason === 'incorrect') scoreElement.textContent = '0';
+    }
 }
+
+// Modified Submit Handler
+submitButton.addEventListener('click', () => {
+    if (!checkAnswer()) {
+        resultElement.textContent = 'Complete the sequence correctly before submitting!';
+        return;
+    }
+    endGame('correct');
+});
 
 // ================== DRAG AND DROP HANDLERS ================== //
 
