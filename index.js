@@ -41,3 +41,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+// Togle menu
+
+    // Collapsible sections
+    document.querySelectorAll('.subsection-header').forEach(button => {
+        button.addEventListener('click', () => {
+          const subsection = button.parentElement;
+          const isExpanded = subsection.classList.toggle('active');
+          const content = subsection.querySelector('.subsection-content');
+          
+          // Update ARIA attributes
+          button.setAttribute('aria-expanded', isExpanded);
+          
+          // Toggle content
+          if (isExpanded) {
+            content.style.maxHeight = content.scrollHeight + "px";
+          } else {
+            content.style.maxHeight = null;
+          }
+        });
+      });
