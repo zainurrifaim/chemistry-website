@@ -886,12 +886,7 @@ body {
    ====================== */
 @media (max-width: 992px) {
     .table-preview {
-        grid-template-columns: repeat(10, 1fr); /* Reduced from 12 columns */
-        gap: 8px;
-        overflow-x: auto; /* Allow horizontal scrolling if needed */
-        padding-bottom: 15px; /* Space for scrollbar */
-        width: 100%;
-        max-width: 100%;
+        grid-template-columns: repeat(8, 1fr); /* Reduced from 12 columns */
     }
     
     .element {

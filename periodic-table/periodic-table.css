@@ -184,7 +184,7 @@
    @media (min-width: 768px) {
     /* Show full info on tablets/desktops */
     .name, .atomic-mass {
-        display: block;
+        display: none;
     }
     
     .name {
@@ -206,6 +206,11 @@
 
 @media (min-width: 992px) {
     /* Larger tiles on desktop */
+    
+    .name, .atomic-mass {
+        display: none;
+    }
+
     .periodic-table {
         grid-template-columns: repeat(18, minmax(50px, 1fr));
         grid-auto-rows: minmax(50px, 1fr);
