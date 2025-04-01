@@ -1408,6 +1408,16 @@ body {
     margin: var(--space-md) 0 var(--space-xs) 0;
     font-size: clamp(1.25rem, 3.5vw, 1.5rem);
   }
+
+  .main-content h3 a {
+    color: inherit; /* Inherits the color from parent h3 (var(--secondary)) */
+    text-decoration: none; /* Removes underline */
+}
+
+ .main-content h3 a:hover {
+    color: inherit; /* Maintains color on hover */
+    text-decoration: none; /* Ensures no underline appears on hover */
+}
   
   .main-content h4 {
     color: var(--accent5);
