@@ -84,9 +84,44 @@ body {
     background-color: rgba(60, 128, 139, 0.1);
 }
 
+
+
 .initial-container {
     border-color: #3c808b;
     background-color: rgba(60, 128, 139, 0.1);
+}
+
+/* Ensure answer container slots are properly sized */
+#answer-container {
+  --slot-min-size: clamp(45px, 6vw, 55px);
+  --slot-margin: clamp(2px, 0.5vw, 5px);
+  --outline-width: clamp(1px, 0.3vw, 2px);
+  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--slot-min-size), 1fr));
+  gap: var(--slot-margin);
+  padding: 0.5rem;
+}
+
+#answer-container .slot {
+  min-width: var(--slot-min-size);
+  min-height: var(--slot-min-size);
+  aspect-ratio: 1; /* Maintain square ratio */
+  margin: var(--slot-margin);
+  background: rgba(255,255,255,0.1);
+  
+  /* Smooth scaling */
+  transition: all 0.3s ease;
+}
+
+#answer-container.drag-over {
+  outline: var(--outline-width) dashed #3c808b;
+  outline-offset: calc(var(--outline-width) * -1);
+}
+
+/* Visual feedback for answer container */
+#answer-container.drag-over {
+    outline: 2px dashed #3c808b;
 }
 
 /* ================================================
@@ -290,3 +325,36 @@ button, .back-btn {
         margin-top: 20px;
     }
 }
+
+/* Landscape optimization */
+@media (orientation: landscape) {
+    #answer-container {
+      --slot-min-size: clamp(50px, 8vh, 60px);
+      --slot-margin: clamp(3px, 1vh, 5px);
+    }
+    
+    /* Compact layout for small landscape screens */
+    @media (max-height: 500px) {
+      #answer-container {
+        grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
+        gap: 2px;
+      }
+    }
+  }
+  
+  /* Mobile-first adjustments */
+  @media (max-width: 480px) {
+    #answer-container {
+      --slot-min-size: 48px;
+      --slot-margin: 3px;
+    }
+  }
+  
+  /* Tablet/desktop enhancement */
+  @media (min-width: 768px) {
+    #answer-container {
+      --slot-min-size: 55px;
+      --slot-margin: 5px;
+      --outline-width: 2px;
+    }
+  }

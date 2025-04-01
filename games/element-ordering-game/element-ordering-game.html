@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChemEdu | Elements Ordering Game</title>
+    <title>ChemEdu | Element-Ordering Game</title>
     <link rel="icon" type="image/png" href="../../media/images/icon.png"> <!-- For modern browsers -->
     <link rel="shortcut icon" href="../../media/images/favicon.ico"> <!-- For older browsers -->
     <title>Number Ordering Game</title>
-    <link rel="stylesheet" href="elements-ordering-game.css">
+    <link rel="stylesheet" href="element-ordering-game.css">
 </head>
 <body>
     <div class="game-container">
-        <h1 style="text-align: center; color:#db243b">Elements Ordering Game</h1>       
+        <h1 style="text-align: center; color:#db243b">Element-Ordering Game</h1>       
         <div class="game-info">
             <div>Time: <span id="timer" class="time-text">300</span>s</div>
             <div>Score: <span id="score">0</span></div>
@@ -32,12 +32,12 @@
             
             <div>
                 <div class="container-label">Your Answer (Smallest to Largest):</div>
-                <div id="answer-container" class="container answer-container">
-                    <div class="slot" data-index="0"></div>
-                    <div class="slot" data-index="1"></div>
-                    <div class="slot" data-index="2"></div>
-                    <div class="slot" data-index="3"></div>
-                    <div class="slot" data-index="4"></div>
+                <div id="answer-container" class="container">
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
                 </div>
             </div>
         </div>
@@ -51,6 +51,6 @@
         <div id="result" class="result-container"></div>
     </div>
 
-    <script src="elements-ordering-game.js"></script>
+    <script src="element-ordering-game.js"></script>
 </body>
 </html>

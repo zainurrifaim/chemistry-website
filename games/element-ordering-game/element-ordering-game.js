@@ -344,20 +344,35 @@ function handleTouchStart(e) {
     
     draggedBox = this;
     draggedBoxInitialParent = this.parentElement;
+
+    // Store original styles and parent
+    const rect = draggedBox.getBoundingClientRect();
+    draggedBox.dataset.originalParent = draggedBoxInitialParent;
+    draggedBox.dataset.originalIndex = Array.from(draggedBoxInitialParent.children).indexOf(draggedBox);
     
-    // Get initial touch position
+    // Move element to body for viewport-relative positioning
+    document.body.appendChild(draggedBox);
+    
+    // Calculate touch offset relative to element
     const touch = e.touches[0];
-    touchStartX = touch.clientX;
-    touchStartY = touch.clientY;
+    const offsetX = touch.clientX - rect.left;
+    const offsetY = touch.clientY - rect.top;
     
-    // Style the dragged box
-    draggedBox.style.position = 'absolute';
+    // Store dimensions and offsets
+    draggedBox.dataset.offsetX = offsetX;
+    draggedBox.dataset.offsetY = offsetY;
+    draggedBox.dataset.originalWidth = rect.width;
+    draggedBox.dataset.originalHeight = rect.height;
+
+    // Apply optimized dragging styles
+    draggedBox.style.position = 'fixed';
+    draggedBox.style.width = `${rect.width}px`;
+    draggedBox.style.height = `${rect.height}px`;
+    draggedBox.style.left = `${rect.left}px`;
+    draggedBox.style.top = `${rect.top}px`;
     draggedBox.style.zIndex = '1000';
-    draggedBox.style.transform = 'scale(1.1)';
-    draggedBox.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
-    
-    // Add dragging class
-    draggedBox.classList.add('dragging');
+    draggedBox.style.transform = 'translateZ(0)'; // Enable GPU acceleration
+    draggedBox.style.transition = 'none'; // Disable CSS transitions
 }
 
 function handleTouchMove(e) {
@@ -365,72 +380,98 @@ function handleTouchMove(e) {
     e.preventDefault();
     
     const touch = e.touches[0];
-    const x = touch.clientX;
-    const y = touch.clientY;
-    
-    // Move the box with the touch
-    draggedBox.style.left = `${x - draggedBox.offsetWidth / 2}px`;
-    draggedBox.style.top = `${y - draggedBox.offsetHeight / 2}px`;
-    
-    // Highlight potential drop targets
-    const elements = document.elementsFromPoint(x, y);
-    const slot = elements.find(el => el.classList.contains('slot'));
-    const container = elements.find(el => el === initialContainer);
-    
-    // Reset all slot highlights
+    const x = touch.clientX - parseFloat(draggedBox.dataset.offsetX);
+    const y = touch.clientY - parseFloat(draggedBox.dataset.offsetY);
+
+    // Use requestAnimationFrame for smooth updates
+    requestAnimationFrame(() => {
+        draggedBox.style.left = `${x}px`;
+        draggedBox.style.top = `${y}px`;
+    });
+
+    // Get current position for hit testing
+    const centerX = touch.clientX;
+    const centerY = touch.clientY;
+
+    // Reset highlights
     slots.forEach(s => s.classList.remove('drag-over'));
-    
-    // Highlight the potential drop target
+    initialContainer.classList.remove('drag-over');
+
+    // Find drop target using document.elementFromPoint
+    const target = document.elementFromPoint(centerX, centerY);
+    const slot = target?.closest('.slot');
+    const container = target?.closest('#initial-container');
+
+    // Highlight valid drop targets
     if (slot) {
         slot.classList.add('drag-over');
     } else if (container) {
-        initialContainer.classList.add('drag-over');
+        container.classList.add('drag-over');
     }
 }
 
 function handleTouchEnd(e) {
     if (!draggedBox || gameState !== 'playing') return;
     e.preventDefault();
-    
+
     // Get final touch position
     const touch = e.changedTouches[0];
     const x = touch.clientX;
     const y = touch.clientY;
+
+    // Find all potential drop targets
+    const answerContainer = document.getElementById('answer-container');
+    const targets = document.elementsFromPoint(x, y);
     
-    // Find drop target
-    const elements = document.elementsFromPoint(x, y);
-    const slot = elements.find(el => el.classList.contains('slot'));
-    const container = elements.find(el => el === initialContainer);
-    
-    // Reset styles
-    draggedBox.style.position = '';
-    draggedBox.style.left = '';
-    draggedBox.style.top = '';
-    draggedBox.style.zIndex = '';
-    draggedBox.style.transform = '';
-    draggedBox.style.boxShadow = '';
+    // Prioritize drop targets in this order:
+    const slot = targets.find(t => t.classList?.contains('slot'));
+    const initial = targets.find(t => t === initialContainer);
+    const answer = targets.find(t => t === answerContainer);
+
+    // Reset styles first
+    draggedBox.style.cssText = '';
     draggedBox.classList.remove('dragging');
-    
-    // Reset all highlights
-    slots.forEach(s => s.classList.remove('drag-over'));
-    initialContainer.classList.remove('drag-over');
-    
-    // Handle drop
+
+    // Determine new parent with priority: slot > answer container > initial container
+    let newParent;
     if (slot) {
-        const existingBox = slot.querySelector('.box');
-        if (existingBox) {
-            draggedBoxInitialParent.appendChild(existingBox);
-        }
-        slot.appendChild(draggedBox);
-    } else if (container && !container.contains(draggedBox)) {
-        container.appendChild(draggedBox);
+        newParent = slot;
+    } else if (answer) {
+        // If dropping directly on answer container (not slot), find nearest slot
+        const nearestSlot = Array.from(answerContainer.querySelectorAll('.slot'))
+            .find(s => {
+                const rect = s.getBoundingClientRect();
+                return x >= rect.left && x <= rect.right &&
+                       y >= rect.top && y <= rect.bottom;
+            });
+        newParent = nearestSlot || draggedBoxInitialParent;
+    } else {
+        newParent = initial || draggedBoxInitialParent;
     }
-    
-    // Reset touch variables
-    draggedBox = null;
-    draggedBoxInitialParent = null;
+
+    // Validate parent element
+    if (!(newParent instanceof HTMLElement)) {
+        console.warn('Invalid drop target, reverting to original parent');
+        newParent = draggedBoxInitialParent;
+    }
+
+    // Handle existing element in slot
+    if (newParent.classList?.contains('slot') && newParent.children.length > 0) {
+        const existing = newParent.children[0];
+        existing.remove();
+        draggedBoxInitialParent.appendChild(existing);
+    }
+
+    // Move element to new parent
+    newParent.appendChild(draggedBox);
+
+    // Cleanup
+    document.querySelectorAll('.slot, #initial-container, #answer-container')
+        .forEach(el => el.classList.remove('drag-over'));
     
     updateSubmitButton();
+    draggedBox = null;
+    draggedBoxInitialParent = null;
 }
 
 // ================== INITIALIZATION ================== //
