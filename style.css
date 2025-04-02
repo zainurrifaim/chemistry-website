@@ -454,7 +454,13 @@ body {
 }
 
 .course-card p {
-    color: var(--secondary);
+    color: var(--dark);
+    text-align: justify;
+}
+
+.course-card p span {
+    color: var(--highlight);
+    font-weight: bold;  /* Added bold styling */
 }
 
 /* ================================================
@@ -910,7 +916,7 @@ body {
 
 @media (max-width: 576px) {
     .table-preview {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 5px;
     }
     
@@ -922,7 +928,7 @@ body {
 
 @media (max-width: 480px) {
     .table-preview {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
@@ -1160,7 +1166,7 @@ body {
 /* Additional tablet size break for larger tablets */
 @media (min-width: 993px) and (max-width: 1024px) {
     .table-preview {
-        grid-template-columns: repeat(11, 1fr);
+        grid-template-columns: repeat(8, 1fr);
     }
     
     .course-grid {
@@ -1670,7 +1676,7 @@ body {
     width: 100%;
     padding: var(--space-sm);
     border: none;
-    background: var(--accent3);
+    background: var(--primary);
     color: white;
     text-align: left;
     display: flex;
@@ -1682,7 +1688,7 @@ body {
 }
 
 .subsection-header:hover {
-    background: var(--primary);
+    background: var(--accent5);
 }
 
 .toggle-icon {
