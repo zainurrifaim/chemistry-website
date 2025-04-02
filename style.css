@@ -455,7 +455,7 @@ body {
 
 .course-card p {
     color: var(--dark);
-    text-align: justify;
+    text-align: center;
 }
 
 .course-card p span {
