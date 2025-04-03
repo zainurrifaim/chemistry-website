@@ -1,3 +1,7 @@
+        // ================================================
+        // Hamburger
+        // ================================================
+
 document.addEventListener('DOMContentLoaded', function() {
     // Get references to the hamburger button and navigation menu
     const hamburger = document.querySelector('.hamburger');
@@ -42,10 +46,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-// Togle menu
-
-    // Collapsible sections
+        // ================================================
+        // Togle menu
+        // ================================================
+        // Collapsible sections
     document.querySelectorAll('.subsection-header').forEach(button => {
         button.addEventListener('click', () => {
           const subsection = button.parentElement;
@@ -63,3 +67,48 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
       });
+
+
+            // ================================================
+            //Sending messages to Spreadsheet
+            //================================================
+           
+        document.addEventListener('DOMContentLoaded', function() {
+          const form = document.getElementById('contactForm');
+          const formStatus = document.getElementById('formStatus');
+          const submitBtn = document.getElementById('submitBtn');
+          
+          form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            formStatus.innerHTML = '<p style="color: #666;">Submitting your message...</p>';
+            
+            // Improved FormData collection
+            const formData = new FormData(form);
+            formData.append('timestamp', new Date().toString());
+            
+            // Replace with your deployed URL
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxxK0v77WFONjgNyiw6kKREVthght3MtNnO6WR3BH5_c4Ukd-VBn65hn4FzgQf7Z3y-Rg/exec';
+            
+            fetch(scriptURL, { method: 'POST', body: formData })
+              .then(response => response.json())
+              .then(data => {
+                if (data.result === 'success') {
+                  formStatus.innerHTML = '<p style="color: green;">Thank you! Your message has been sent successfully.</p>';
+                  form.reset();
+                } else {
+                  throw new Error(data.error);
+                }
+              })
+              .catch(error => {
+                console.error('Error!', error);
+                formStatus.innerHTML = '<p style="color: red;">Something went wrong. Please try again later.</p>';
+              })
+              .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+                setTimeout(() => formStatus.innerHTML = '', 5000);
+              });
+          });
+        });
