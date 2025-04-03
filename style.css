@@ -1099,6 +1099,25 @@ body {
     }
 }
 
+/* Mobile-specific media query */
+@media (max-width: 768px) {
+    #contactForm input,
+    #contactForm select,
+    #contactForm textarea {
+        font-size: 16px; /* Prevent iOS zoom */
+    }
+    
+    #submitBtn {
+        padding: 12px 24px;
+        min-width: 140px;
+    }
+    
+    .spinner {
+        width: 20px;
+        height: 20px;
+    }
+}
+
 /* ======================
    ORIENTATION-SPECIFIC
    ====================== */
