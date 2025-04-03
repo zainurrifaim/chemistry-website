@@ -1602,10 +1602,11 @@ body {
     }
     
     .main-content .ion-table {
-      display: block;
-      width: calc(100% + var(--space-xs) * 2);
-      margin-left: calc(-1 * var(--space-xs));
-      margin-right: calc(-1 * var(--space-xs));
+        display: table;
+        width: 100%;
+        margin: var(--space-md) 0;
+        border-collapse: separate;
+        border-spacing: 0;
     }
     
     .main-content .ion-table th,
